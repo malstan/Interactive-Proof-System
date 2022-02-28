@@ -8,6 +8,7 @@ var grammar = {
     {"name": "formula", "symbols": [{"literal":"⊢"}, "statement"]},
     {"name": "formula", "symbols": ["statement", {"literal":"⊢"}, "statement"]},
     {"name": "formula", "symbols": ["statement", {"literal":"⊢"}]},
+    {"name": "formula", "symbols": ["statement"], "postprocess": id},
     {"name": "statement", "symbols": ["implication"], "postprocess": id},
     {"name": "statement$ebnf$1$subexpression$1", "symbols": [{"literal":","}, "implication"]},
     {"name": "statement$ebnf$1", "symbols": ["statement$ebnf$1$subexpression$1"]},
@@ -18,7 +19,9 @@ var grammar = {
         data => {
             const formulas = data[1].map(item => item.filter(item => item != ','));
             data.pop();
-            formulas.forEach(item => item.length > 1 ? data.push(item) : data.push(item[0]));
+            formulas.forEach(item => item.length > 1
+                ? data.push(item)
+                : data.push(item[0]));
             return data;
         }
                         },

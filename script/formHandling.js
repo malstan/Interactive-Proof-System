@@ -54,7 +54,7 @@ export default class FormHandling {
     } catch (error) {
       // catch error and show message
       console.log(error);
-      onError("Zadajte správnu formulu.");
+      onError("Zadajte správny tvar formuly.");
       this.formulaInput.classList.add("invalid");
       return false;
     }

@@ -58,6 +58,7 @@ body
             display: flex
             justify-content: space-evenly
             align-items: center
+            padding: .5rem 0
             & .inputContainer
                 display: flex
                 flex-direction: column
@@ -68,8 +69,6 @@ body
                     &:focus
                         outline: 0
                         border-color: $blue-medium
-                    &.invalid
-                        border-color: $error
                 & select
                     margin-top: 0.5rem
                     padding: 0.5rem
@@ -130,6 +129,10 @@ body
     border: 2px solid $blue-light
     border-radius: 8px
     padding: 0.25rem 1rem
+
+/// FORM FOR CUT RULE
+#formForCut
+    display: none
 
 /// SYMBOLS, RULES, TUTORIAL, INFO
 .container
@@ -201,7 +204,7 @@ body
 
 /// ERROR AND SUCCESS
 .error, .success
-    position: absolute
+    position: fixed
     visibility: hidden
     color: #fff
     background-color: $error
@@ -215,6 +218,8 @@ body
     background-color: $error
 .success
     background-color: $success
+.invalid
+    border-color: $error
 
 /*! ----------------------- RESPONSIVITY -----------------------
 

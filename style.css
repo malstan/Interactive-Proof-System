@@ -74,6 +74,7 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  padding: .5rem 0;
 }
 
 .container__calc .formContainer .inputContainer {
@@ -95,10 +96,6 @@ body {
 .container__calc .formContainer .inputContainer input:focus, .container__calc .formContainer .inputContainer select:focus {
   outline: 0;
   border-color: #0084C8;
-}
-
-.container__calc .formContainer .inputContainer input.invalid, .container__calc .formContainer .inputContainer select.invalid {
-  border-color: #ff9090;
 }
 
 .container__calc .formContainer .inputContainer select {
@@ -189,6 +186,10 @@ body {
   border: 2px solid #19AEFF;
   border-radius: 8px;
   padding: 0.25rem 1rem;
+}
+
+#formForCut {
+  display: none;
 }
 
 .container__infos {
@@ -297,7 +298,7 @@ body {
 }
 
 .error, .success {
-  position: absolute;
+  position: fixed;
   visibility: hidden;
   color: #fff;
   background-color: #ff9090;
@@ -316,6 +317,10 @@ body {
 
 .success {
   background-color: #4ADB82;
+}
+
+.invalid {
+  border-color: #ff9090;
 }
 
 /*! ----------------------- RESPONSIVITY ----------------------- */

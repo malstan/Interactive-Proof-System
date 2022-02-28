@@ -1,4 +1,5 @@
 import rulesGSC from "./rules_gsc.js";
+import { onError } from "./messages.js";
 
 /**
  * class for formula handling
@@ -10,8 +11,8 @@ export default class FormulaHandling {
    * @param {*} method - proof method
    */
   constructor(formula, method) {
-    this.formulaSuccessMessage = document.querySelector("#js-formulaIsProved");
-    this.treeContainer = document.querySelector(".tree-js");
+    this.formulaSuccessMessage = document.getElementById("js-formulaIsProved");
+    this.treeContainer = document.getElementById("tree-js");
 
     this.tree = new Array(formula);
     this.leaf = new Array(formula);
@@ -26,6 +27,8 @@ export default class FormulaHandling {
     // message
     this.formulaSuccessMessage.style.visibility = "hidden";
 
+    this.checkIfProved && this.handleEnd();
+
     this.prepareRules();
 
     this.renderFormula();
@@ -36,17 +39,13 @@ export default class FormulaHandling {
    */
   prepareRules() {
     // get elements with rules
-    const rules = document.querySelector(`#js-${this.method}`).children;
+    const rules = document.getElementById(`js-${this.method}`).children;
 
     // add listener and style to rules
     Array.from(rules, (rule) => {
       rule.classList.add("readyToUse");
       rule.addEventListener("click", (event) => {
-        this.handleChooseOfRule(
-          rule.dataset.rule,
-          event.clientX,
-          event.clientY
-        );
+        this.handleChooseOfRule(rule.dataset.rule, event.pageX, event.pageY);
       });
     });
   }
@@ -57,7 +56,7 @@ export default class FormulaHandling {
    */
   async handleChooseOfRule(ruleName, x, y) {
     let formulaForProof = await this.getFormulaForProof(x, y);
-    if (formulaForProof === null) return;
+    if (formulaForProof === null || formulaForProof === undefined) return;
 
     const parser = new nearley.Parser(nearley.Grammar.fromCompiled(grammar));
 
@@ -71,6 +70,8 @@ export default class FormulaHandling {
       console.log(error);
       console.log("====================================");
 
+      onError("Niekde nastala chyba");
+
       return;
     }
 
@@ -83,7 +84,7 @@ export default class FormulaHandling {
       result[1].forEach((item) => this.leaf.push(item));
       this.addToFormulaArray(this.tree, result);
       this.renderFormula();
-      this.checkIfProved();
+      this.checkIfProved() && this.handleEnd();
     } else {
       this.leaf.push(result);
     }
@@ -96,7 +97,7 @@ export default class FormulaHandling {
   async getFormulaForProof(x, y) {
     // check if there are multiple formulas
     if (this.leaf.length > 1) {
-      let leafContainer = document.querySelector("#js-chooseLeaf");
+      let leafContainer = document.getElementById("js-chooseLeaf");
       // clear options
       leafContainer.innerHTML = "";
 
@@ -255,8 +256,7 @@ export default class FormulaHandling {
         break;
       } else proved = true;
     }
-
-    proved ? this.handleEnd() : null;
+    return proved;
   }
 
   /**
@@ -264,7 +264,7 @@ export default class FormulaHandling {
    */
   handleEnd() {
     // get elements with rules
-    const rulesContainer = document.querySelector(`#js-${this.method}`);
+    const rulesContainer = document.getElementById(`js-${this.method}`);
 
     // remove listener by clone
     const newRuleContainer = rulesContainer.cloneNode(true);
@@ -275,6 +275,7 @@ export default class FormulaHandling {
       rule.classList.remove("readyToUse");
     });
 
-    this.formulaSuccessMessage.style.visibility = "initial";
+    this.checkIfProved() &&
+      (this.formulaSuccessMessage.style.visibility = "initial");
   }
 }

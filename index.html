@@ -37,7 +37,7 @@
                 <form class="form" id="formulaForm">
                     <div class="formContainer">
                         <div class="inputContainer">
-                            <input type="text" id="formula" name="fomrula" autocomplete="off" placeholder="formula">
+                            <input type="text" id="formula" name="fomrula" autocomplete="off" placeholder="napr.: A∧B⊢¬(C⇒D),¬E">
                             <!--
                             <select name="method" id="method">
                                 <option value="gsc">Gentzenov sekventový kalkul</option>
@@ -48,8 +48,20 @@
                         <button class="buttonPrimary" type="submit"> > </button>
                     </div>
                 </form>
+                <form id="formForCut">
+                    <div class="formContainer">
+                        <div class="inputContainer">
+                            <input type="text" id="forCut" name="forCut" autocomplete="off" placeholder="formula pre pravidlo rezu">
+                        </div>
+                        <div>
+                            <button class="buttonPrimary" type="reset"> x </button>
+                            <button class="buttonPrimary" type="submit"> > </button>
+                        </div>
+
+                    </div>
+                </form>
                 <div class="formulaIsProved" id="js-formulaIsProved">Formula je dokázaná</div>
-                <div class="container__calc__treeContainer tree-js">
+                <div class="container__calc__treeContainer" id="tree-js">
                 </div>
             </div>
             <div class="container__infos">
@@ -134,7 +146,7 @@
                             </div>
 
                             <div class="rules__container__rule" data-rule="cut">
-                                <p>pravidlo rezu - ľavé (cut)</p>
+                                <p>pravidlo rezu (cut)</p>
                                 <img src="img/rules/gsc_cut.png" alt="">
                             </div>
 
@@ -175,7 +187,7 @@
                         <ol>
                             <li>
                                 Zadanie formuly:
-                                <p>symboly je možné zadať z klávesnice alebo pomocou tlačidiel v záložke <strong>Symboly</strong>.</p>
+                                <p>symboly je možné zadať z klávesnice alebo pomocou tlačidiel v záložke <strong>Symboly</strong>. Napríklad A∧B⊢¬(C⇒D),¬E</p>
                             </li>
                             <li>
                                 Uplatňovanie dokazovacích pravidiel:

@@ -73,7 +73,7 @@ export default [
 
 /**
  * get user know about error
- * @param {*} rule  - name of rule
+ * @param {string} rule  - name of rule
  */
 function canNotApply(rule) {
   onError("Pravidlo " + rule + " sa nedá aplikovať na formulu.");
@@ -94,8 +94,8 @@ function arrayToString(array) {
 
 /**
  * add result of proof to right side of formula
- * @param {*} formula
- * @param {*} result
+ * @param {string} formula
+ * @param {string} result
  * @returns new formula
  */
 function addToRight(formula, result) {
@@ -106,8 +106,8 @@ function addToRight(formula, result) {
 
 /**
  * add result of proof to left side of formula
- * @param {*} formula
- * @param {*} result
+ * @param {string} formula
+ * @param {string} result
  * @returns new formula
  */
 function addToLeft(formula, result) {
@@ -121,9 +121,9 @@ function addToLeft(formula, result) {
 
 /**
  * check if array includes the symbols
- * yes -> there is no colon in formula
- * no -> there is colon in formula
- * @param {} formula
+ * yes -> there is no comma in formula
+ * no -> there is comma in formula
+ * @param {string} formula
  * @returns boolean
  */
 function checkComma(formula) {
@@ -137,9 +137,9 @@ function checkComma(formula) {
 
 /**
  * let user choose proposition from formula
- * @param {*} formula
- * @param {*} x
- * @param {*} y
+ * @param {string} formula
+ * @param {number} x
+ * @param {number} y
  * @returns proposition
  */
 async function handleComma(formula, x, y) {
@@ -147,7 +147,7 @@ async function handleComma(formula, x, y) {
   // split
   let formulas = formula.filter((item) => item !== ",");
 
-  let formulaContainer = document.querySelector("#js-chooseLeaf");
+  let formulaContainer = document.getElementById("js-chooseLeaf");
   // clear options
   formulaContainer.innerHTML = "";
 
@@ -196,8 +196,70 @@ async function handleComma(formula, x, y) {
 }
 
 /**
+ * get new formula from user for cut rule
+ * @param {number} x
+ * @param {number} y
+ * @returns formula
+ */
+async function inputForCut(x, y) {
+  const formForCut = document.getElementById("formForCut");
+
+  // show form
+  formForCut.style.display = "initial";
+
+  return new Promise((resolve) => {
+    // return input formula
+    const listenerForSubmit = (event) => {
+      event.preventDefault();
+
+      formForCut.removeEventListener("submit", listenerForSubmit);
+      formForCut.removeEventListener("reset", listenerForReset);
+
+      let formula = formForCut.elements["forCut"].value.replace(" ", "");
+
+      // check input formula
+      const parser = new nearley.Parser(nearley.Grammar.fromCompiled(grammar));
+      try {
+        // check if formula is empty
+        if (formula === "" || formula.includes("⊢"))
+          throw new Error("Formula is empty.");
+
+        // try to create abstract syntax tree
+        parser.feed(formula);
+      } catch (error) {
+        // catch error and show message
+        console.log(error);
+        onError("Zadajte správny tvar formuly.");
+        resolve(null);
+      }
+
+      // hide form
+      formForCut.style.display = "none";
+      formForCut.reset();
+
+      resolve(formula);
+    };
+
+    // reset and hide form
+    const listenerForReset = () => {
+      formForCut.removeEventListener("submit", listenerForSubmit);
+      formForCut.removeEventListener("reset", listenerForReset);
+
+      formForCut.style.display = "none";
+      formForCut.reset();
+
+      resolve(false);
+    };
+
+    // listeners
+    formForCut.addEventListener("submit", listenerForSubmit);
+    formForCut.addEventListener("reset", listenerForReset);
+  });
+}
+
+/**
  * remove odd comma after proving
- * @param {*} formula
+ * @param {string} formula
  * @returns edited formula
  */
 function removeOddComma(formula) {
@@ -228,10 +290,10 @@ function removeOddComma(formula) {
 
 /**
  * remove unnecessary brackets
- * @param {} formula
- * @param {*} ast
- * @param {*} x
- * @param {*} y
+ * @param {string} formula
+ * @param {array} ast
+ * @param {number} x
+ * @param {number} y
  * @returns formula without brackets
  */
 function removeUnnecessaryBrackets(formula) {
@@ -242,9 +304,11 @@ function removeUnnecessaryBrackets(formula) {
 
 /**
  * APPLY RIGHT NEGATION RULE
- * @param {*} formula
- * @param {*} ast
- * @returns null / formula
+ * @param {string} formula
+ * @param {array} ast
+ * @param {number} x
+ * @param {number} y
+ * @returns formula | array
  */
 async function applyNegR(formula, ast, x, y) {
   // save only right side
@@ -282,9 +346,11 @@ async function applyNegR(formula, ast, x, y) {
 
 /**
  * APPLY LEFT NEGATION RULE
- * @param {*} formula
- * @param {*} ast
- * @returns null / formula
+ * @param {string} formula
+ * @param {array} ast
+ * @param {number} x
+ * @param {number} y
+ * @returns formula | array
  */
 async function applyNegL(formula, ast, x, y) {
   // save only left side
@@ -323,11 +389,11 @@ async function applyNegL(formula, ast, x, y) {
 
 /**
  * APPLY RIGHT CONJUNCTION RULE
- * @param {*} formula
- * @param {*} ast
- * @param {*} x
- * @param {*} y
- * @returns
+ * @param {string} formula
+ * @param {array} ast
+ * @param {number} x
+ * @param {number} y
+ * @returns formula | array
  */
 async function applyConR(formula, ast, x, y) {
   // save only right side
@@ -372,11 +438,11 @@ async function applyConR(formula, ast, x, y) {
 
 /**
  * APPLY LEFT 1 CONJUNCTION RULE
- * @param {*} formula
- * @param {*} ast
- * @param {*} x
- * @param {*} y
- * @returns
+ * @param {string} formula
+ * @param {array} ast
+ * @param {number} x
+ * @param {number} y
+ * @returns formula | array
  */
 async function applyConL1(formula, ast, x, y) {
   // save only left side
@@ -416,11 +482,11 @@ async function applyConL1(formula, ast, x, y) {
 
 /**
  * APPLY LEFT 2 CONJUNCTION RULE
- * @param {*} formula
- * @param {*} ast
- * @param {*} x
- * @param {*} y
- * @returns
+ * @param {string} formula
+ * @param {array} ast
+ * @param {number} x
+ * @param {number} y
+ * @returns formula | array
  */
 async function applyConL2(formula, ast, x, y) {
   // save only left side
@@ -454,16 +520,17 @@ async function applyConL2(formula, ast, x, y) {
     ];
   } else {
     canNotApply("ľavá konjunkcia 2");
+    return formula;
   }
 }
 
 /**
  * APPLY RIGHT DISJUNCTION 1 RULE
- * @param {*} formula
- * @param {*} ast
- * @param {*} x
- * @param {*} y
- * @returns
+ * @param {string} formula
+ * @param {array} ast
+ * @param {number} x
+ * @param {number} y
+ * @returns formula | array
  */
 async function applyDisR1(formula, ast, x, y) {
   // save only right side
@@ -503,11 +570,11 @@ async function applyDisR1(formula, ast, x, y) {
 
 /**
  * APPLY RIGHT DISJUNCTION 2
- * @param {*} formula
- * @param {*} ast
- * @param {*} x
- * @param {*} y
- * @returns
+ * @param {string} formula
+ * @param {array} ast
+ * @param {number} x
+ * @param {number} y
+ * @returns formula | array
  */
 async function applyDisR2(formula, ast, x, y) {
   // save only right side
@@ -547,11 +614,11 @@ async function applyDisR2(formula, ast, x, y) {
 
 /**
  * APPLY LEFT DISJUNCTION
- * @param {*} formula
- * @param {*} ast
- * @param {*} x
- * @param {*} y
- * @returns
+ * @param {string} formula
+ * @param {array} ast
+ * @param {number} x
+ * @param {number} y
+ * @returns formula | array
  */
 async function applyDisL(formula, ast, x, y) {
   // save only left side
@@ -595,11 +662,11 @@ async function applyDisL(formula, ast, x, y) {
 
 /**
  * APPLY RIGHT IMPLICATION
- * @param {*} formula
- * @param {*} ast
- * @param {*} x
- * @param {*} y
- * @returns
+ * @param {string} formula
+ * @param {array} ast
+ * @param {number} x
+ * @param {number} y
+ * @returns formula | array
  */
 async function applyImpR(formula, ast, x, y) {
   // save only right side
@@ -645,11 +712,11 @@ async function applyImpR(formula, ast, x, y) {
 
 /**
  * APPLY LEFT IMPLICATION
- * @param {*} formula
- * @param {*} ast
- * @param {*} x
- * @param {*} y
- * @returns
+ * @param {string} formula
+ * @param {array} ast
+ * @param {number} x
+ * @param {number} y
+ * @returns formula | array
  */
 async function applyImpL(formula, ast, x, y) {
   // save only left side
@@ -694,11 +761,11 @@ async function applyImpL(formula, ast, x, y) {
 
 /**
  * APPLY RIGHT WEAKENING
- * @param {*} formula
- * @param {*} ast
- * @param {*} x
- * @param {*} y
- * @returns
+ * @param {string} formula
+ * @param {array} ast
+ * @param {number} x
+ * @param {number} y
+ * @returns formula | array
  */
 async function applyWR(formula, ast, x, y) {
   // save only right side
@@ -733,11 +800,11 @@ async function applyWR(formula, ast, x, y) {
 
 /**
  * APPLY LEFT WEAKENING
- * @param {*} formula
- * @param {*} ast
- * @param {*} x
- * @param {*} y
- * @returns
+ * @param {string} formula
+ * @param {array} ast
+ * @param {number} x
+ * @param {number} y
+ * @returns formula | array
  */
 async function applyWL(formula, ast, x, y) {
   // save only left side
@@ -772,11 +839,11 @@ async function applyWL(formula, ast, x, y) {
 
 /**
  * APPLY RIGHT CONTRACTION
- * @param {*} formula
- * @param {*} ast
- * @param {*} x
- * @param {*} y
- * @returns
+ * @param {string} formula
+ * @param {array} ast
+ * @param {number} x
+ * @param {number} y
+ * @returns formula | array
  */
 async function applyCR(formula, ast, x, y) {
   // save only right side
@@ -811,11 +878,11 @@ async function applyCR(formula, ast, x, y) {
 
 /**
  * APPLY LEFT CONTRACTION
- * @param {*} formula
- * @param {*} ast
- * @param {*} x
- * @param {*} y
- * @returns
+ * @param {string} formula
+ * @param {array} ast
+ * @param {number} x
+ * @param {number} y
+ * @returns formula | array
  */
 async function applyCL(formula, ast, x, y) {
   // save only left side
@@ -844,75 +911,38 @@ async function applyCL(formula, ast, x, y) {
   }
 }
 
+/**
+ * APPLY CUT
+ * @param {string} formula
+ * @param {array} ast
+ * @param {number} x
+ * @param {number} y
+ * @returns formula | array
+ */
 async function applyCut(formula, ast, x, y) {
-  //
-  let formulaWithImp = ast[ast.indexOf("⊢") - 1];
-
-  if (formulaWithImp === undefined) {
-    canNotApply("rezu");
-    return formula;
-  }
-
-  // handle commas
-  if (checkComma(formulaWithImp))
-    formulaWithImp = await handleComma(formulaWithImp, x, y);
-
+  let formulaToAdd = await inputForCut();
   // proving
-  if (formulaWithImp !== null && formulaWithImp.includes("⇒")) {
-    // to string
-    formulaWithImp = arrayToString(formulaWithImp);
-    // remove formula from right side
-    let newFormula = formula.replace(formulaWithImp, "");
-    // handle odd comma
-    newFormula = removeOddComma(newFormula);
-
+  if (formulaToAdd === false) return formula;
+  if (formulaToAdd !== null) {
     return [
       formula,
-      [
-        addToRight(newFormula, arrayToString(firstStatement)),
-        addToLeft(newFormula, arrayToString(secondStatement)),
-      ],
+      [addToRight(formula, formulaToAdd), addToLeft(formula, formulaToAdd)],
       "(cut)",
     ];
   } else {
-    canNotApply("ľavá implikácia");
+    canNotApply("rez");
     return formula;
   }
 }
 
-async function applyExR(formula, ast, x, y) {
-  // save only right side
-  let formulaWithEx = ast[ast.indexOf("⊢") + 1];
-
-  if (formulaWithEx === undefined) {
-    canNotApply("pravá výmena");
-    return formula;
-  }
-
-  // handle commas
-  if (checkComma(formulaWithEx))
-    formulaWithEx = await handleComma(formulaWithEx, x, y);
-
-  // proving
-  if (formulaWithEx !== null) {
-    // to string
-    formulaWithEx = arrayToString(formulaWithEx);
-    // remove formula from right side
-    let newFormula = formula.replace(formulaWithEx, "");
-    // handle odd comma
-    newFormula = removeOddComma(newFormula);
-
-    return [
-      formula,
-      [addToRight(newFormula, arrayToString(firstStatement))],
-      "(exr)",
-    ];
-  } else {
-    canNotApply("pravá výmena");
-    return formula;
-  }
-}
-
+/**
+ * APPLY LEFT EXCHANGE
+ * @param {string} formula
+ * @param {array} ast
+ * @param {number} x
+ * @param {number} y
+ * @returns formula | array
+ */
 async function applyExL(formula, ast, x, y) {
   // save only left side
   let formulaWithEx = ast[ast.indexOf("⊢") - 1];
@@ -922,26 +952,90 @@ async function applyExL(formula, ast, x, y) {
     return formula;
   }
 
+  let first, second;
   // handle commas
-  if (checkComma(formulaWithEx))
-    formulaWithEx = await handleComma(formulaWithEx, x, y);
+  if (checkComma(formulaWithEx)) {
+    first = arrayToString(await handleComma(formulaWithEx, x, y));
+    second = arrayToString(
+      await handleComma(
+        formulaWithEx.filter((item) => item != first),
+        x,
+        y
+      )
+    );
+  }
 
   // proving
-  if (formulaWithEx !== null && formulaWithEx.includes("⇒")) {
-    // to string
-    formulaWithEx = arrayToString(formulaWithEx);
-    // remove formula from right side
-    let newFormula = formula.replace(formulaWithEx, "");
-    // handle odd comma
-    newFormula = removeOddComma(newFormula);
+  if (first && second) {
+    // get right side as array
+    let left = formula.split("⊢")[0];
+    let leftArray = left.split(",");
 
-    return [
-      formula,
-      [addToLeft(newFormula, arrayToString(secondStatement))],
-      "(exl)",
-    ];
+    // swap
+    let firstIndex = leftArray.indexOf(first);
+    let secondIndex = leftArray.indexOf(second);
+    leftArray[firstIndex] = second;
+    leftArray[secondIndex] = first;
+
+    // new formula
+    let newFormula = leftArray.join(",") + formula.slice(formula.indexOf("⊢"));
+
+    return [formula, [newFormula], "(exl)"];
   } else {
     canNotApply("ľavá výmena");
+    return formula;
+  }
+}
+
+/**
+ * APPLY RIGHT EXCHANGE
+ * @param {string} formula
+ * @param {array} ast
+ * @param {number} x
+ * @param {number} y
+ * @returns formula | array
+ */
+async function applyExR(formula, ast, x, y) {
+  // save only right side
+  let formulaWithEx = ast[ast.indexOf("⊢") + 1];
+
+  if (formulaWithEx === undefined) {
+    canNotApply("pravá výmena");
+    return formula;
+  }
+
+  let first, second;
+  // handle commas
+  if (checkComma(formulaWithEx)) {
+    first = arrayToString(await handleComma(formulaWithEx, x, y));
+    second = arrayToString(
+      await handleComma(
+        formulaWithEx.filter((item) => item != first),
+        x,
+        y
+      )
+    );
+  }
+
+  // proving
+  if (first && second) {
+    // get right side as array
+    let right = formula.split("⊢")[1];
+    let rightArray = right.split(",");
+
+    // swap
+    let firstIndex = rightArray.indexOf(first);
+    let secondIndex = rightArray.indexOf(second);
+    rightArray[firstIndex] = second;
+    rightArray[secondIndex] = first;
+
+    // new formula
+    let newFormula =
+      formula.slice(0, formula.indexOf("⊢") + 1) + rightArray.join(",");
+
+    return [formula, [newFormula], "(exr)"];
+  } else {
+    canNotApply("pravá výmena");
     return formula;
   }
 }
