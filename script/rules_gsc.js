@@ -215,7 +215,7 @@ async function inputForCut(x, y) {
       formForCut.removeEventListener("submit", listenerForSubmit);
       formForCut.removeEventListener("reset", listenerForReset);
 
-      let formula = formForCut.elements["forCut"].value.replace(" ", "");
+      let formula = formForCut.elements["forCut"].value.replaceAll(" ", "");
 
       // check input formula
       const parser = new nearley.Parser(nearley.Grammar.fromCompiled(grammar));

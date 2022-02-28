@@ -46,8 +46,24 @@ document
 // add symbol when button is pressed
 window.addSymbol = (symbol) => {
   const formForCut = document.getElementById("formForCut");
-  if (formForCut.style.display === "initial")
-    formForCut.elements["forCut"].value += symbol;
-  else
-    document.getElementById("formulaForm").elements["formula"].value += symbol;
+  if (formForCut.style.display === "initial") {
+    let input = formForCut.elements["forCut"].value;
+
+    let position = input.slice(
+      0,
+      document.getElementById("forCut").selectionStart
+    ).length;
+    formForCut.elements["forCut"].value =
+      input.slice(0, position) + symbol + input.slice(position);
+  } else {
+    const field = document.getElementById("formulaForm");
+    let input = field.elements["formula"].value;
+
+    let position = input.slice(
+      0,
+      document.getElementById("formula").selectionStart
+    ).length;
+    field.elements["formula"].value =
+      input.slice(0, position) + symbol + input.slice(position);
+  }
 };

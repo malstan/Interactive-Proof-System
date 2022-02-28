@@ -85,6 +85,7 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  width: clamp(200px, 60%, 500px);
 }
 
 .container__calc .formContainer .inputContainer input, .container__calc .formContainer .inputContainer select {
