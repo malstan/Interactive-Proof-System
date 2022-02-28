@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Interaktívny dokazovací systém výrokovej logiky</title>
+
+        <link rel="stylesheet" href="style.css">
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    </head>
+
+    <body>
+
+        <div class="error"></div>
+        <div class="success"></div>
+
+        <header class="header">
+            <div class="header__container">
+                <div class="header__container__logo">
+                    <a href="https://www.tuke.sk" target="_blank"><img src="img/tuke.png" alt="tuke logo"></a>
+                    <a href="http://fei.tuke.sk" target="_blank"><img src="img/fei.jpg" alt="fei logo"></a>
+                    <a href="https://www.kpi.fei.tuke.sk" target="_blank"><img src="img/logo-kpi-web_0.png" alt="kpi logo"></a>
+                </div>
+                <div class="header__container__flags">
+                    <img src="img/sk.png" alt="slovak flag">
+                    <img src="img/en.png" alt="english flag">
+                </div>
+            </div>
+            <h1>Interaktívny dokazovací systém výrokovej logiky</h1>
+        </header>
+
+        <section class="container">
+            <div class="container__calc">
+                <form class="form" id="formulaForm">
+                    <div class="formContainer">
+                        <div class="inputContainer">
+                            <input type="text" id="formula" name="fomrula" autocomplete="off" placeholder="formula">
+                            <select name="method" id="method">
+                                <option value="gsc">Gentzenov sekventový kalkul</option>
+                                <option disabled value="nd">Naturálna dedukcia</option>
+                            </select>
+                        </div>
+                        <button class="buttonPrimary" type="submit"> > </button>
+                    </div>
+                </form>
+                <div class="formulaIsProved" id="js-formulaIsProved">Formula je dokázaná</div>
+                <div class="container__calc__treeContainer tree-js">
+                </div>
+            </div>
+            <div class="container__infos">
+                <ul class="container__infos__tabs tabs-js">
+                    <li data-tab="#symbols">Symboly</li>
+                    <li data-tab="#rules">Pravidlá</li>
+                    <li data-tab="#tutorial">Návod</li>
+                    <li data-tab="#info">Info</li>
+                </ul>
+                <div class="container__infos__panes panes-js">
+                    <div id="symbols" class="symbols">
+                        <div class="symbols__container">
+                            <button class="symbols__container__button" onclick="window.addSymbol('A')">A</button>
+                            <button class="symbols__container__button" onclick="window.addSymbol('B')">B</button>
+                            <button class="symbols__container__button" onclick="window.addSymbol('C')">C</button>
+                            <button class="symbols__container__button" onclick="window.addSymbol('D')">D</button>
+                            <button class="symbols__container__button" onclick="window.addSymbol('E')">E</button>
+                            <button class="symbols__container__button" onclick="window.addSymbol('F')">F</button>
+                            <button class="symbols__container__button" onclick="window.addSymbol('G')">G</button>
+                            <button class="symbols__container__button" id="js-removeButton">←</button>
+                            <button class="symbols__container__button" onclick="window.addSymbol('∧')">∧</button>
+                            <button class="symbols__container__button" onclick="window.addSymbol('∨')">∨</button>
+                            <button class="symbols__container__button" onclick="window.addSymbol('¬')">¬</button>
+                            <button class="symbols__container__button" onclick="window.addSymbol('⇒')">⇒</button>
+                            <button class="symbols__container__button" onclick="window.addSymbol('⊢')">⊢</button>
+                            <button class="symbols__container__button" onclick="window.addSymbol('(')">(</button>
+                            <button class="symbols__container__button" onclick="window.addSymbol(')')">)</button>
+                            <button class="symbols__container__button" onclick="window.addSymbol(',')">,</button>
+                        </div>
+                    </div>
+                    <div id="rules" class="rules">
+                        <div class="rules__container" id="js-gsc">
+
+                            <div class="rules__container__rule" data-rule="neg_l">
+                                <p>negácia - ľavá (¬l)</p>
+                                <img src="img/rules/gsc_neg_l.png" alt="">
+                            </div>
+
+                            <div class="rules__container__rule" data-rule="neg_r">
+                                <p>negácia - pravá (¬r)</p>
+                                <img src="img/rules/gsc_neg_r.png" alt="">
+                            </div>
+
+                            <div class="rules__container__rule" data-rule="con_l1">
+                                <p>konjunkcia - ľavá (∧l1)</p>
+                                <img src="img/rules/gsc_kon_l1.png" alt="">
+                            </div>
+
+                            <div class="rules__container__rule" data-rule="con_l2">
+                                <p>konjunkcia - ľavá (∧l2)</p>
+                                <img src="img/rules/gsc_kon_l2.png" alt="">
+                            </div>
+
+                            <div class="rules__container__rule" data-rule="con_r">
+                                <p>konjunkcia - pravá (∧r)</p>
+                                <img src="img/rules/gsc_kon_r.png" alt="">
+                            </div>
+
+                            <div class="rules__container__rule" data-rule="dis_l">
+                                <p>disjunkcia - ľavá (∨l)</p>
+                                <img src="img/rules/gsc_dis_l.png" alt="">
+                            </div>
+
+                            <div class="rules__container__rule" data-rule="dis_r1">
+                                <p>disjunkcia - pravá (∨r1)</p>
+                                <img src="img/rules/gsc_dis_r1.png" alt="">
+                            </div>
+
+                            <div class="rules__container__rule" data-rule="dis_r2">
+                                <p>disjunkcia - pravá (∨r2)</p>
+                                <img src="img/rules/gsc_dis_r2.png" alt="">
+                            </div>
+
+                            <div class="rules__container__rule" data-rule="imp_l">
+                                <p>implikácia - ľavá (⇒l)</p>
+                                <img src="img/rules/gsc_imp_l.png" alt="">
+                            </div>
+
+                            <div class="rules__container__rule" data-rule="imp_r">
+                                <p>implikácia - pravá (⇒r)</p>
+                                <img src="img/rules/gsc_imp_r.png" alt="">
+                            </div>
+
+                            <div class="rules__container__rule" data-rule="wl">
+                                <p>pravidlo zoslabenia - ľavé (wl)</p>
+                                <img src="img/rules/gsc_wl.png" alt="">
+                            </div>
+
+                            <div class="rules__container__rule" data-rule="wr">
+                                <p>pravidlo zoslabenia - pravé (wr)</p>
+                                <img src="img/rules/gsc_wr.png" alt="">
+                            </div>
+
+                            <div class="rules__container__rule" data-rule="cl">
+                                <p>pravidlo kontrakcie - ľavé (cl)</p>
+                                <img src="img/rules/gsc_cl.png" alt="">
+                            </div>
+
+                            <div class="rules__container__rule" data-rule="cr">
+                                <p>pravidlo kontrakcie - pravé (cr)</p>
+                                <img src="img/rules/gsc_cr.png" alt="">
+                            </div>
+
+                            <div class="rules__container__rule" data-rule="cut">
+                                <p>pravidlo rezu - ľavé (cut)</p>
+                                <img src="img/rules/gsc_cut.png" alt="">
+                            </div>
+
+                            <div class="rules__container__rule" data-rule="exl">
+                                <p>pravidlo výmeny - ľavé (exl)</p>
+                                <img src="img/rules/gsc_exl.png" alt="">
+                            </div>
+
+                            <div class="rules__container__rule" data-rule="exr">
+                                <p>pravidlo výmeny - pravé (exr)</p>
+                                <img src="img/rules/gsc_exr.png" alt="">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div id="tutorial">
+                        <h4>Kroky dokazovania logických formúl</h4>
+                        <ol>
+                            <li>zadanie formuly</li>
+                            <li>výber dokazovacej metódy</li>
+                            <li>uplatňovanie dokazovacích pravidiel</li>
+                        </ol>
+                    </div>
+                    <div id="info">
+                        <p>Aplikácia vznikla ako bakalársky projekt. Cieľom bolo poskytnúť študentom interaktívny dokazovací systém pre potreby výučby...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <select class="chooseLeaf" id="js-chooseLeaf">
+        </select>
+
+        <script src="script/jquery_functions.js"></script>
+        <script src="script/nearley.js"></script>
+        <script src="script/grammar.js"></script>
+        <script defer src="script/index.js" type="module"></script>
+    </body>
+</html>
