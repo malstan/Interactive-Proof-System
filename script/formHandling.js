@@ -19,7 +19,7 @@ export default class FormHandling {
    */
   handleForm() {
     let formula = this.formulaInput.value.trim();
-    const method = this.formulaForm.elements["method"].value;
+    const method = "gsc";
 
     this.formulaForm.reset();
 

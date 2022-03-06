@@ -23,8 +23,10 @@
                     <a href="https://www.kpi.fei.tuke.sk" target="_blank"><img src="img/logo-kpi-web_0.png" alt="kpi logo"></a>
                 </div>
                 <div class="header__container__flags">
+                    <!--
                     <img src="img/sk.png" alt="slovak flag">
                     <img src="img/en.png" alt="english flag">
+                    -->
                 </div>
             </div>
             <h1>Interaktívny dokazovací systém výrokovej logiky</h1>
@@ -36,10 +38,12 @@
                     <div class="formContainer">
                         <div class="inputContainer">
                             <input type="text" id="formula" name="fomrula" autocomplete="off" placeholder="formula">
+                            <!--
                             <select name="method" id="method">
                                 <option value="gsc">Gentzenov sekventový kalkul</option>
                                 <option disabled value="nd">Naturálna dedukcia</option>
                             </select>
+                            -->
                         </div>
                         <button class="buttonPrimary" type="submit"> > </button>
                     </div>
@@ -50,32 +54,12 @@
             </div>
             <div class="container__infos">
                 <ul class="container__infos__tabs tabs-js">
-                    <li data-tab="#symbols">Symboly</li>
                     <li data-tab="#rules">Pravidlá</li>
+                    <li data-tab="#symbols">Symboly</li>
                     <li data-tab="#tutorial">Návod</li>
                     <li data-tab="#info">Info</li>
                 </ul>
                 <div class="container__infos__panes panes-js">
-                    <div id="symbols" class="symbols">
-                        <div class="symbols__container">
-                            <button class="symbols__container__button" onclick="window.addSymbol('A')">A</button>
-                            <button class="symbols__container__button" onclick="window.addSymbol('B')">B</button>
-                            <button class="symbols__container__button" onclick="window.addSymbol('C')">C</button>
-                            <button class="symbols__container__button" onclick="window.addSymbol('D')">D</button>
-                            <button class="symbols__container__button" onclick="window.addSymbol('E')">E</button>
-                            <button class="symbols__container__button" onclick="window.addSymbol('F')">F</button>
-                            <button class="symbols__container__button" onclick="window.addSymbol('G')">G</button>
-                            <button class="symbols__container__button" id="js-removeButton">←</button>
-                            <button class="symbols__container__button" onclick="window.addSymbol('∧')">∧</button>
-                            <button class="symbols__container__button" onclick="window.addSymbol('∨')">∨</button>
-                            <button class="symbols__container__button" onclick="window.addSymbol('¬')">¬</button>
-                            <button class="symbols__container__button" onclick="window.addSymbol('⇒')">⇒</button>
-                            <button class="symbols__container__button" onclick="window.addSymbol('⊢')">⊢</button>
-                            <button class="symbols__container__button" onclick="window.addSymbol('(')">(</button>
-                            <button class="symbols__container__button" onclick="window.addSymbol(')')">)</button>
-                            <button class="symbols__container__button" onclick="window.addSymbol(',')">,</button>
-                        </div>
-                    </div>
                     <div id="rules" class="rules">
                         <div class="rules__container" id="js-gsc">
 
@@ -166,16 +150,41 @@
 
                         </div>
                     </div>
+                    <div id="symbols" class="symbols">
+                        <div class="symbols__container">
+                            <button class="symbols__container__button" onclick="window.addSymbol('A')">A</button>
+                            <button class="symbols__container__button" onclick="window.addSymbol('B')">B</button>
+                            <button class="symbols__container__button" onclick="window.addSymbol('C')">C</button>
+                            <button class="symbols__container__button" onclick="window.addSymbol('D')">D</button>
+                            <button class="symbols__container__button" onclick="window.addSymbol('E')">E</button>
+                            <button class="symbols__container__button" onclick="window.addSymbol('F')">F</button>
+                            <button class="symbols__container__button" onclick="window.addSymbol('G')">G</button>
+                            <button class="symbols__container__button" id="js-removeButton">←</button>
+                            <button class="symbols__container__button" onclick="window.addSymbol('∧')">∧</button>
+                            <button class="symbols__container__button" onclick="window.addSymbol('∨')">∨</button>
+                            <button class="symbols__container__button" onclick="window.addSymbol('¬')">¬</button>
+                            <button class="symbols__container__button" onclick="window.addSymbol('⇒')">⇒</button>
+                            <button class="symbols__container__button" onclick="window.addSymbol('⊢')">⊢</button>
+                            <button class="symbols__container__button" onclick="window.addSymbol('(')">(</button>
+                            <button class="symbols__container__button" onclick="window.addSymbol(')')">)</button>
+                            <button class="symbols__container__button" onclick="window.addSymbol(',')">,</button>
+                        </div>
+                    </div>
                     <div id="tutorial">
                         <h4>Kroky dokazovania logických formúl</h4>
                         <ol>
-                            <li>zadanie formuly</li>
-                            <li>výber dokazovacej metódy</li>
-                            <li>uplatňovanie dokazovacích pravidiel</li>
+                            <li>
+                                Zadanie formuly:
+                                <p>symboly je možné zadať z klávesnice alebo pomocou tlačidiel v záložke <strong>Symboly</strong>.</p>
+                            </li>
+                            <li>
+                                Uplatňovanie dokazovacích pravidiel:
+                                <p>pravidlá sa uplatňujú na formulu kliknutím na požadované pravidlo v záložke <strong>Pravidlá</strong>. Poradie výberu pravidiel je na používateľovi. V prípade, že existuje viac listov stromu alebo sekventov vo formule, po vybratí pravidla sa zobrazia všetky možnosti v rolovacom boxe vedľa kurzora.</p>
+                            </li>
                         </ol>
                     </div>
                     <div id="info">
-                        <p>Aplikácia vznikla ako bakalársky projekt. Cieľom bolo poskytnúť študentom interaktívny dokazovací systém pre potreby výučby...</p>
+                        <p>Aplikácia vznikla ako bakalársky projekt. Cieľom je poskytnúť študentom interaktívny dokazovací systém pre potreby výučby. Aplikácia ponúka dokazovanie logických formúl výrokovej logiky metódou <strong>Gentzenovho sekventového kalkulu</strong>.</p>
                     </div>
                 </div>
             </div>

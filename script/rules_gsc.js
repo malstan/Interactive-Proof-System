@@ -113,7 +113,10 @@ function addToRight(formula, result) {
 function addToLeft(formula, result) {
   result = removeUnnecessaryBrackets(result);
   if (formula[0] === "⊢") return `${result}${formula}`;
-  else return `${result},${formula}`;
+  else {
+    let splitFormula = formula.split("⊢");
+    return `${splitFormula[0]},${result}⊢${splitFormula[1]}`;
+  }
 }
 
 /**
@@ -174,14 +177,14 @@ async function handleComma(formula, x, y) {
       resolve(formulas[formulaContainer.selectedIndex - 1]);
     };
 
-    // if clicked outside the selection box return null and hide the selection box
+    // if clicked outside the selection box return false and hide the selection box
     const listenerForMouseup = (event) => {
       if (event.target.id !== "js-chooseLeaf") {
         document.removeEventListener("mouseup", listenerForMouseup);
         formulaContainer.removeEventListener("change", listenerForChange);
 
         formulaContainer.style.visibility = "hidden";
-        resolve(null);
+        resolve(false);
       }
     };
 
@@ -257,6 +260,8 @@ async function applyNegR(formula, ast, x, y) {
   if (checkComma(formulaWithNeg))
     formulaWithNeg = await handleComma(formulaWithNeg, x, y);
 
+  if (formulaWithNeg === false) return formula;
+
   // proving
   if (formulaWithNeg !== null && formulaWithNeg.includes("¬")) {
     // to string
@@ -294,6 +299,8 @@ async function applyNegL(formula, ast, x, y) {
   // handle commas
   if (checkComma(formulaWithNeg))
     formulaWithNeg = await handleComma(formulaWithNeg, x, y);
+
+  if (formulaWithNeg === false) return formula;
 
   // proving
   if (formulaWithNeg !== null && formulaWithNeg.includes("¬")) {
@@ -335,6 +342,8 @@ async function applyConR(formula, ast, x, y) {
   // handle commas
   if (checkComma(formulaWithCon))
     formulaWithCon = await handleComma(formulaWithCon, x, y);
+
+  if (formulaWithCon === false) return formula;
 
   // proving
   if (formulaWithCon !== null && formulaWithCon.includes("∧")) {
@@ -382,6 +391,8 @@ async function applyConL1(formula, ast, x, y) {
   if (checkComma(formulaWithCon))
     formulaWithCon = await handleComma(formulaWithCon, x, y);
 
+  if (formulaWithCon === false) return formula;
+
   // proving
   if (formulaWithCon !== null && formulaWithCon.includes("∧")) {
     let firstStatement = formulaWithCon[0];
@@ -424,6 +435,8 @@ async function applyConL2(formula, ast, x, y) {
   if (checkComma(formulaWithCon))
     formulaWithCon = await handleComma(formulaWithCon, x, y);
 
+  if (formulaWithCon === false) return formula;
+
   // proving
   if (formulaWithCon !== null && formulaWithCon.includes("∧")) {
     let secondStatement = formulaWithCon[2];
@@ -464,6 +477,8 @@ async function applyDisR1(formula, ast, x, y) {
   // handle commas
   if (checkComma(formulaWithDis))
     formulaWithDis = await handleComma(formulaWithDis, x, y);
+
+  if (formulaWithDis === false) return formula;
 
   // proving
   if (formulaWithDis !== null && formulaWithDis.includes("∨")) {
@@ -507,6 +522,8 @@ async function applyDisR2(formula, ast, x, y) {
   if (checkComma(formulaWithDis))
     formulaWithDis = await handleComma(formulaWithDis, x, y);
 
+  if (formulaWithDis === false) return formula;
+
   // proving
   if (formulaWithDis !== null && formulaWithDis.includes("∨")) {
     let secondStatement = formulaWithDis[2];
@@ -549,6 +566,8 @@ async function applyDisL(formula, ast, x, y) {
   if (checkComma(formulaWithDis))
     formulaWithDis = await handleComma(formulaWithDis, x, y);
 
+  if (formulaWithDis === false) return formula;
+
   // proving
   if (formulaWithDis !== null && formulaWithDis.includes("∨")) {
     let firstStatement = formulaWithDis[0];
@@ -566,7 +585,7 @@ async function applyDisL(formula, ast, x, y) {
         addToLeft(newFormula, arrayToString(firstStatement)),
         addToLeft(newFormula, arrayToString(secondStatement)),
       ],
-      "(∨r)",
+      "(∨l)",
     ];
   } else {
     canNotApply("ľavá disjunkcia");
@@ -594,6 +613,8 @@ async function applyImpR(formula, ast, x, y) {
   // handle commas
   if (checkComma(formulaWithImp))
     formulaWithImp = await handleComma(formulaWithImp, x, y);
+
+  if (formulaWithImp === false) return formula;
 
   // proving
   if (formulaWithImp !== null && formulaWithImp.includes("⇒")) {
@@ -643,6 +664,8 @@ async function applyImpL(formula, ast, x, y) {
   if (checkComma(formulaWithImp))
     formulaWithImp = await handleComma(formulaWithImp, x, y);
 
+  if (formulaWithImp === false) return formula;
+
   // proving
   if (formulaWithImp !== null && formulaWithImp.includes("⇒")) {
     let firstStatement = formulaWithImp[0];
@@ -690,6 +713,8 @@ async function applyWR(formula, ast, x, y) {
   if (checkComma(formulaWithW))
     formulaWithW = await handleComma(formulaWithW, x, y);
 
+  if (formulaWithW === false) return formula;
+
   // proving
   if (formulaWithW !== null) {
     // to string
@@ -726,6 +751,8 @@ async function applyWL(formula, ast, x, y) {
   // handle commas
   if (checkComma(formulaWithW))
     formulaWithW = await handleComma(formulaWithW, x, y);
+
+  if (formulaWithW === false) return formula;
 
   // proving
   if (formulaWithW !== null) {
@@ -764,15 +791,16 @@ async function applyCR(formula, ast, x, y) {
   if (checkComma(formulaWithC))
     formulaWithC = await handleComma(formulaWithC, x, y);
 
+  if (formulaWithC === false) return formula;
+
   // proving
   if (formulaWithC !== null) {
     // to string
     formulaWithC = arrayToString(formulaWithC);
-    // handle odd comma
 
     return [
       formula,
-      [addToRight(newFormula, arrayToString(formulaWithC))],
+      [addToRight(formula, arrayToString(formulaWithC))],
       "(cr)",
     ];
   } else {
@@ -802,14 +830,14 @@ async function applyCL(formula, ast, x, y) {
   if (checkComma(formulaWithC))
     formulaWithC = await handleComma(formulaWithC, x, y);
 
+  if (formulaWithC === false) return formula;
+
   // proving
   if (formulaWithC !== null) {
     // to string
     formulaWithC = arrayToString(formulaWithC);
-    // handle odd comma
-    newFormula = removeOddComma(newFormula);
 
-    return [formula, [addToLeft(newFormula, formulaWithC)], "(cl)"];
+    return [formula, [addToLeft(formula, formulaWithC)], "(cl)"];
   } else {
     canNotApply("ľavá kontrakcia");
     return formula;

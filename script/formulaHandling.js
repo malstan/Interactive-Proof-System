@@ -70,6 +70,8 @@ export default class FormulaHandling {
       console.log(formulaForProof);
       console.log(error);
       console.log("====================================");
+
+      return;
     }
 
     // find and apply rule
@@ -114,7 +116,7 @@ export default class FormulaHandling {
       leafContainer.style.left = `${x}px`;
 
       // wait for user choice
-      return new Promise((resolve) => {
+      return await new Promise((resolve) => {
         // return chosen formula
         const listenerForChange = (event) => {
           document.removeEventListener("mouseup", listenerForMouseup);
@@ -175,6 +177,15 @@ export default class FormulaHandling {
   renderFormula() {
     this.treeContainer.innerHTML = "";
     this.treeContainer.appendChild(this.addToTree(this.tree));
+
+    // check if tree is bigger than width of viewport
+    if (this.treeContainer.offsetWidth < this.treeContainer.scrollWidth) {
+      this.treeContainer.style.justifyContent = "flex-start";
+      this.treeContainer.style.overflowY = "hidden";
+    } else {
+      this.treeContainer.style.justifyContent = "center";
+      this.treeContainer.style.overflowY = "initial";
+    }
   }
 
   /**

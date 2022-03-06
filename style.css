@@ -61,7 +61,7 @@ body {
 }
 
 .container__calc {
-  width: 50%;
+  width: 58%;
 }
 
 .container__calc .formContainer {
@@ -127,6 +127,9 @@ body {
   color: #fff;
   font-weight: bold;
   font-size: 1.5rem;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  cursor: pointer;
 }
 
 .buttonPrimary:hover {
@@ -158,8 +161,9 @@ body {
 
 .nameOfRule {
   position: relative;
-  top: 10px;
-  left: 37px;
+  top: 9px;
+  left: 28px;
+  font-size: 0.8rem;
 }
 
 .siblings {
@@ -188,7 +192,7 @@ body {
 }
 
 .container__infos {
-  width: 50%;
+  width: 42%;
   text-align: left;
 }
 
@@ -243,6 +247,8 @@ body {
   font-weight: bold;
   font-size: 1rem;
   cursor: pointer;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
 }
 
 .symbols__container__button:hover {
@@ -251,7 +257,7 @@ body {
 }
 
 .rules {
-  height: calc( 100vh - 198px);
+  height: calc( 100vh - 270.1px);
   overflow-x: hidden;
   overflow-y: auto;
 }
@@ -270,11 +276,17 @@ body {
   -ms-flex-preferred-size: 290px;
       flex-basis: 290px;
   padding: 0 1rem;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
 }
 
 .rules__container__rule img {
   height: 65px;
   width: auto;
+}
+
+.rules__container__rule p {
+  font-weight: bolder;
 }
 
 .rules__container .readyToUse:hover {
@@ -307,7 +319,7 @@ body {
 }
 
 /*! ----------------------- RESPONSIVITY ----------------------- */
-@media (max-width: 1300px) {
+@media (max-width: 1529px) {
   .container {
     padding: 0.75rem;
   }
@@ -333,6 +345,9 @@ body {
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
+  }
+  .rules {
+    height: calc( 100vh - 246.1px);
   }
 }
 
@@ -361,6 +376,9 @@ body {
     -ms-grid-rows: (1fr)[2];
         grid-template-rows: repeat(2, 1fr);
   }
+  .rules {
+    height: 100%;
+  }
 }
 
 @media (max-width: 768px) {
@@ -380,7 +398,7 @@ body {
     padding: 0.3rem;
   }
   .container__infos__tabs li {
-    padding: 0.3rem 0.7rem;
+    padding: 0.3rem 0.4rem;
   }
 }
 /*# sourceMappingURL=style.css.map */
