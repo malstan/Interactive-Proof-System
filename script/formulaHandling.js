@@ -65,10 +65,7 @@ export default class FormulaHandling {
       parser.feed(formulaForProof);
     } catch (error) {
       // catch error
-      console.log("====================================");
-      console.log(formulaForProof);
       console.log(error);
-      console.log("====================================");
 
       onError("Niekde nastala chyba");
 
@@ -103,7 +100,7 @@ export default class FormulaHandling {
 
       // add options
       let defaultOption = document.createElement("option");
-      defaultOption.innerText = "výber";
+      defaultOption.innerText = "výber formuly";
       leafContainer.appendChild(defaultOption);
       this.leaf.forEach((item) => {
         let option = document.createElement("option");

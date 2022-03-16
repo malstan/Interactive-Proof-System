@@ -2,7 +2,8 @@
 <html>
     <head>
 
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Interaktívny dokazovací systém výrokovej logiky pomocou Gentzenovho sekventového kalkulu.">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
         <title>Interaktívny dokazovací systém výrokovej logiky</title>
 
         <link rel="stylesheet" href="style.css">
@@ -45,7 +46,7 @@
                             </select>
                             -->
                         </div>
-                        <button class="buttonPrimary" type="submit"> > </button>
+                        <button class="buttonPrimary" title="začať dokazovanie" type="submit"> > </button>
                     </div>
                 </form>
                 <form id="formForCut">
@@ -54,8 +55,8 @@
                             <input type="text" id="forCut" name="forCut" autocomplete="off" placeholder="formula pre pravidlo rezu">
                         </div>
                         <div>
-                            <button class="buttonPrimary" type="reset"> x </button>
-                            <button class="buttonPrimary" type="submit"> > </button>
+                            <button class="buttonPrimary" title="zrušiť" type="reset"> x </button>
+                            <button class="buttonPrimary" title="použiť výrok" type="submit"> > </button>
                         </div>
 
                     </div>
@@ -171,7 +172,7 @@
                             <button class="symbols__container__button" onclick="window.addSymbol('E')">E</button>
                             <button class="symbols__container__button" onclick="window.addSymbol('F')">F</button>
                             <button class="symbols__container__button" onclick="window.addSymbol('G')">G</button>
-                            <button class="symbols__container__button" id="js-removeButton">←</button>
+                            <button class="symbols__container__button" title="vymazať" id="js-removeButton">←</button>
                             <button class="symbols__container__button" title="konjunkcia" onclick="window.addSymbol('∧')">∧</button>
                             <button class="symbols__container__button" title="disjunkcia" onclick="window.addSymbol('∨')">∨</button>
                             <button class="symbols__container__button" title="negácia" onclick="window.addSymbol('¬')">¬</button>
@@ -187,11 +188,11 @@
                         <ol>
                             <li>
                                 Zadanie formuly:
-                                <p>symboly je možné zadať z klávesnice alebo pomocou tlačidiel v záložke <strong>Symboly</strong>. Napríklad A∧B⊢¬(C⇒D),¬E</p>
+                                <p>symboly je možné zadať z klávesnice alebo pomocou tlačidiel v záložke <strong>Symboly</strong>. Napríklad A∧B⊢¬(C⇒D),¬E.</p>
                             </li>
                             <li>
                                 Uplatňovanie dokazovacích pravidiel:
-                                <p>pravidlá sa uplatňujú na formulu kliknutím na požadované pravidlo v záložke <strong>Pravidlá</strong>. Poradie výberu pravidiel je na používateľovi. V prípade, že existuje viac listov stromu alebo výrokov vo formule, po vybratí pravidla sa zobrazia všetky možnosti v rolovacom boxe vedľa kurzora. Pri použítí pravidla rezu sa zobrazí vstupné pole pre zadanie formuly.</p>
+                                <p>pravidlá sa na formulu uplatňujú kliknutím na požadované pravidlo v záložke <strong>Pravidlá</strong>. Poradie výberu pravidiel je na používateľovi. V prípade, že existuje viac listov stromu alebo výrokov vo formule, po vybratí pravidla sa zobrazia všetky možnosti v rolovacom boxe vedľa kurzora. Pri použítí pravidla rezu sa zobrazí vstupné pole pre zadanie výroku.</p>
                             </li>
                         </ol>
                     </div>
