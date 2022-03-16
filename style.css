@@ -298,7 +298,7 @@ body {
   border-radius: 8px;
 }
 
-.error, .success {
+#error, #success {
   position: fixed;
   visibility: hidden;
   color: #fff;
@@ -312,11 +312,11 @@ body {
   right: 20px;
 }
 
-.error {
+#error {
   background-color: #ff9090;
 }
 
-.success {
+#success {
   background-color: #4ADB82;
 }
 

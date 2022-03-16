@@ -1,5 +1,5 @@
 import rulesGSC from "./rules_gsc.js";
-import { onError } from "./messages.js";
+import { onError, onSuccess } from "./messages.js";
 
 /**
  * class for formula handling
@@ -7,8 +7,8 @@ import { onError } from "./messages.js";
 export default class FormulaHandling {
   /**
    * constructor
-   * @param {*} formula - formula from input
-   * @param {*} method - proof method
+   * @param {string} formula - formula from input
+   * @param {string} method - proof method
    */
   constructor(formula, method) {
     this.formulaSuccessMessage = document.getElementById("js-formulaIsProved");
@@ -52,9 +52,12 @@ export default class FormulaHandling {
 
   /**
    * apply rule on formula
-   * @param {*} ruleName - rule
+   * @param {string} ruleName - rule
+   * @param {number} x - coordinates of cursor
+   * @param {number} y - coordinates of cursor
    */
   async handleChooseOfRule(ruleName, x, y) {
+    // get formula for
     let formulaForProof = await this.getFormulaForProof(x, y);
     if (formulaForProof === null || formulaForProof === undefined) return;
 
@@ -66,9 +69,7 @@ export default class FormulaHandling {
     } catch (error) {
       // catch error
       console.log(error);
-
       onError("Niekde nastala chyba");
-
       return;
     }
 
@@ -78,8 +79,11 @@ export default class FormulaHandling {
       .apply(formulaForProof, parser.results.slice(-1)[0], x, y);
 
     if (Array.isArray(result)) {
+      // add new leaves to array
       result[1].forEach((item) => this.leaf.push(item));
+      // add result to array
       this.addToFormulaArray(this.tree, result);
+      //render and check
       this.renderFormula();
       this.checkIfProved() && this.handleEnd();
     } else {
@@ -89,19 +93,22 @@ export default class FormulaHandling {
 
   /**
    * let user choose formula
+   * @param {number} x - coordinates of cursor
+   * @param {number} y - coordinates of cursor
    * @returns formula
    */
   async getFormulaForProof(x, y) {
     // check if there are multiple formulas
     if (this.leaf.length > 1) {
       let leafContainer = document.getElementById("js-chooseLeaf");
-      // clear options
+      // clear options in select box
       leafContainer.innerHTML = "";
 
-      // add options
+      // add options to select box
       let defaultOption = document.createElement("option");
       defaultOption.innerText = "výber formuly";
       leafContainer.appendChild(defaultOption);
+
       this.leaf.forEach((item) => {
         let option = document.createElement("option");
         option.innerText = item;
@@ -146,20 +153,20 @@ export default class FormulaHandling {
   }
 
   /**
-   * add formula to array
-   * @param {*} formula
-   * @param {*} result
+   * add formula to array where is stored every stage of proving
+   * @param {string} formula - formula
+   * @param {json object} result - consists of formula and new formula/formulas
    */
   addToFormulaArray(formula, result) {
-    // proof
+    // as proof
     if (formula.length > 1) {
-      // two proofs
+      // as two proofs
       if (formula[1].length > 1)
         formula[1].forEach((item) => this.addToFormulaArray(item, result));
-      // one proof
+      // as one proof
       else this.addToFormulaArray(formula[1][0], result);
     }
-    // leaf
+    // as leaf
     else {
       if (formula[0] === result[0]) {
         formula[1] = [];
@@ -176,7 +183,7 @@ export default class FormulaHandling {
     this.treeContainer.innerHTML = "";
     this.treeContainer.appendChild(this.addToTree(this.tree));
 
-    // check if tree is bigger than width of viewport
+    // check if tree is bigger than width of viewport. if so, set vertical scrolling
     if (this.treeContainer.offsetWidth < this.treeContainer.scrollWidth) {
       this.treeContainer.style.justifyContent = "flex-start";
       this.treeContainer.style.overflowY = "hidden";
@@ -188,11 +195,11 @@ export default class FormulaHandling {
 
   /**
    * add formula elements to tree
-   * @param {} formula
+   * @param {string} formula - formula
    * @returns elements
    */
   addToTree(formula) {
-    // proof
+    // as proof
     if (formula.length > 1) {
       const div = document.createElement("div");
 
@@ -205,14 +212,14 @@ export default class FormulaHandling {
       rule.innerText = formula[2];
       rule.className = "nameOfRule";
 
-      // two proofs
+      // as two proofs
       if (formula[1].length > 1) {
         divProof.classList.add("siblings");
         formula[1].forEach((item) =>
           divProof.appendChild(this.addToTree(item))
         );
       }
-      // one proof
+      // as one proof
       else divProof.appendChild(this.addToTree(formula[1][0]));
 
       divProof.appendChild(rule);
@@ -224,7 +231,7 @@ export default class FormulaHandling {
 
       return div;
     }
-    // leaf
+    // as leaf
     else {
       const div = document.createElement("div");
       const span = document.createElement("span");
@@ -238,7 +245,8 @@ export default class FormulaHandling {
   }
 
   /**
-   * check all leaves if are axioms
+   * check all leaves if they are axioms
+   * @returns proved ? true : false
    */
   checkIfProved() {
     let proved = false;
@@ -248,10 +256,9 @@ export default class FormulaHandling {
         leaf.includes("∧") ||
         leaf.includes("∨") ||
         leaf.includes("⇒")
-      ) {
-        proved = false;
-        break;
-      } else proved = true;
+      )
+        return false;
+      else proved = true;
     }
     return proved;
   }
@@ -272,6 +279,7 @@ export default class FormulaHandling {
       rule.classList.remove("readyToUse");
     });
 
+    // check
     this.checkIfProved() &&
       (this.formulaSuccessMessage.style.visibility = "initial");
   }

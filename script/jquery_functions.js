@@ -1,3 +1,4 @@
+// handling tabs
 $(document).ready(function () {
   $("#info").show();
   $("*[data-tab='#info']").addClass("activeTab");

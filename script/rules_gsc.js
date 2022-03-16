@@ -1,4 +1,4 @@
-import { onError } from "./messages.js";
+import { onError, onSuccess } from "./messages.js";
 
 export default [
   {
@@ -77,6 +77,14 @@ export default [
  */
 function canNotApply(rule) {
   onError("Pravidlo " + rule + " sa nedá aplikovať na formulu.");
+}
+
+/**
+ * get user know about success
+ * @param {string} rule name of rule
+ */
+function ruleApplied(rule) {
+  onSuccess("Pravidlo " + rule + " bolo aplikované na formulu.");
 }
 
 /**
@@ -337,6 +345,7 @@ async function applyNegR(formula, ast, x, y) {
     // handle odd comma
     newFormula = removeOddComma(newFormula);
 
+    ruleApplied("pravá negácia");
     return [formula, [addToLeft(newFormula, formulaWithNeg)], "(¬r)"];
   } else {
     canNotApply("pravá negácia");
@@ -379,7 +388,7 @@ async function applyNegL(formula, ast, x, y) {
     // handle odd comma
     newFormula = removeOddComma(newFormula);
 
-    // add to right side
+    ruleApplied("ľavá negácia");
     return [formula, [addToRight(newFormula, formulaWithNeg)], "(¬l)"];
   } else {
     canNotApply("ľavá negácia");
@@ -422,6 +431,7 @@ async function applyConR(formula, ast, x, y) {
     // handle odd comma
     newFormula = removeOddComma(newFormula);
 
+    ruleApplied("pravá konjunkcia");
     return [
       formula,
       [
@@ -469,6 +479,7 @@ async function applyConL1(formula, ast, x, y) {
     // handle odd comma
     newFormula = removeOddComma(newFormula);
 
+    ruleApplied("ľavá konjunkcia 1");
     return [
       formula,
       [addToLeft(newFormula, arrayToString(firstStatement))],
@@ -513,6 +524,7 @@ async function applyConL2(formula, ast, x, y) {
     // handle odd comma
     newFormula = removeOddComma(newFormula);
 
+    ruleApplied("ľavá konjunkcia 2");
     return [
       formula,
       [addToLeft(newFormula, arrayToString(secondStatement))],
@@ -557,6 +569,7 @@ async function applyDisR1(formula, ast, x, y) {
     // handle odd comma
     newFormula = removeOddComma(newFormula);
 
+    ruleApplied("pravá disjunkcia 1");
     return [
       formula,
       [addToRight(newFormula, arrayToString(firstStatement))],
@@ -601,6 +614,7 @@ async function applyDisR2(formula, ast, x, y) {
     // handle odd comma
     newFormula = removeOddComma(newFormula);
 
+    ruleApplied("pravá disjunkcia 2");
     return [
       formula,
       [addToRight(newFormula, arrayToString(secondStatement))],
@@ -646,6 +660,7 @@ async function applyDisL(formula, ast, x, y) {
     // handle odd comma
     newFormula = removeOddComma(newFormula);
 
+    ruleApplied("ľavá disjunkcia");
     return [
       formula,
       [
@@ -694,6 +709,7 @@ async function applyImpR(formula, ast, x, y) {
     // handle odd comma
     newFormula = removeOddComma(newFormula);
 
+    ruleApplied("pravá implikácia");
     return [
       formula,
       [
@@ -745,6 +761,7 @@ async function applyImpL(formula, ast, x, y) {
     // handle odd comma
     newFormula = removeOddComma(newFormula);
 
+    ruleApplied("ľavá implikácia");
     return [
       formula,
       [
@@ -791,6 +808,7 @@ async function applyWR(formula, ast, x, y) {
     // handle odd comma
     newFormula = removeOddComma(newFormula);
 
+    ruleApplied("pravé zoslabenie");
     return [formula, [newFormula], "(wr)"];
   } else {
     canNotApply("pravé zoslabenie");
@@ -830,6 +848,7 @@ async function applyWL(formula, ast, x, y) {
     // handle odd comma
     newFormula = removeOddComma(newFormula);
 
+    ruleApplied("ľavé zoslabenie");
     return [formula, [newFormula], "(wl)"];
   } else {
     canNotApply("ľavé zoslabenie");
@@ -865,6 +884,7 @@ async function applyCR(formula, ast, x, y) {
     // to string
     formulaWithC = arrayToString(formulaWithC);
 
+    ruleApplied("pravá kontrakcia");
     return [
       formula,
       [addToRight(formula, arrayToString(formulaWithC))],
@@ -904,6 +924,7 @@ async function applyCL(formula, ast, x, y) {
     // to string
     formulaWithC = arrayToString(formulaWithC);
 
+    ruleApplied("ľavá kontrakcia");
     return [formula, [addToLeft(formula, formulaWithC)], "(cl)"];
   } else {
     canNotApply("ľavá kontrakcia");
@@ -924,13 +945,14 @@ async function applyCut(formula, ast, x, y) {
   // proving
   if (formulaToAdd === false) return formula;
   if (formulaToAdd !== null) {
+    ruleApplied("rezu");
     return [
       formula,
       [addToRight(formula, formulaToAdd), addToLeft(formula, formulaToAdd)],
       "(cut)",
     ];
   } else {
-    canNotApply("rez");
+    canNotApply("rezu");
     return formula;
   }
 }
@@ -980,6 +1002,7 @@ async function applyExL(formula, ast, x, y) {
     // new formula
     let newFormula = leftArray.join(",") + formula.slice(formula.indexOf("⊢"));
 
+    ruleApplied("ľavá výmena");
     return [formula, [newFormula], "(exl)"];
   } else {
     canNotApply("ľavá výmena");
@@ -1033,6 +1056,7 @@ async function applyExR(formula, ast, x, y) {
     let newFormula =
       formula.slice(0, formula.indexOf("⊢") + 1) + rightArray.join(",");
 
+    ruleApplied("pravá výmena");
     return [formula, [newFormula], "(exr)"];
   } else {
     canNotApply("pravá výmena");

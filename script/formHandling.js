@@ -2,11 +2,12 @@ import { onError } from "./messages.js";
 
 /**
  * class for form handling
+ * get formula from user and check it
  */
 export default class FormHandling {
   /**
    * constructor
-   * @param {*} form - id of form
+   * @param {string} form - id of form
    */
   constructor(form) {
     this.formulaForm = document.getElementById(form);
@@ -15,7 +16,7 @@ export default class FormHandling {
 
   /**
    * handle form submit
-   * @returns formula or false
+   * @returns json with formula as string or null
    */
   handleForm() {
     let formula = this.formulaInput.value.replaceAll(" ", "");
@@ -37,7 +38,7 @@ export default class FormHandling {
 
   /**
    * check formula
-   * @param {*} formula - formula for check
+   * @param {string} formula - formula for check
    * @returns valid formula ? true : false
    */
   formulaCheck(formula) {
@@ -48,6 +49,11 @@ export default class FormHandling {
       // check if formula is empty
       if (formula === "" || formula === "⊢")
         throw new Error("Formula is empty.");
+
+      // check last symbol
+      const last = formula[formula.length - 1];
+      if (last === "¬" || last === "∧" || last === "∨" || last === "⇒")
+        throw new Error("Syntax error uncaught by parser");
 
       // try to create abstract syntax tree
       parser.feed(formula);

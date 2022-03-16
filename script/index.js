@@ -5,6 +5,8 @@ let formulaHandling;
 // listener for form submit
 document.getElementById("formulaForm").addEventListener("submit", (event) => {
   event.preventDefault();
+
+  // if there is formula than end proving
   if (formulaHandling) formulaHandling.handleEnd();
 
   // create object for form handling and formula validation
@@ -12,40 +14,36 @@ document.getElementById("formulaForm").addEventListener("submit", (event) => {
 
   const { formula, method } = formHandling.handleForm();
 
-  if (formula) {
-    formulaHandling = new FormulaHandling(formula, method);
-  }
+  // if formula is valid than start proving
+  formula && (formulaHandling = new FormulaHandling(formula, method));
 });
 
 //listener for remove button to remove character
-document
-  .getElementById("js-removeButton")
-  .addEventListener("click", (event) => {
-    let inputFormula =
-      document.getElementById("formulaForm").elements["formula"].value;
-    document.getElementById("formulaForm").elements["formula"].value =
-      inputFormula.substr(0, inputFormula.length - 1);
-  });
+document.getElementById("js-removeButton").addEventListener("click", () => {
+  let inputFormula =
+    document.getElementById("formulaForm").elements["formula"].value;
+  document.getElementById("formulaForm").elements["formula"].value =
+    inputFormula.substr(0, inputFormula.length - 1);
+});
+
 // listeners for remove button to remove formula
 let timer;
-document
-  .getElementById("js-removeButton")
-  .addEventListener("mousedown", (event) => {
-    timer = setTimeout(
-      () =>
-        (document.getElementById("formulaForm").elements["formula"].value = ""),
-      500
-    );
-  });
-document
-  .getElementById("js-removeButton")
-  .addEventListener("mouseup", (event) => {
-    clearTimeout(timer);
-  });
+document.getElementById("js-removeButton").addEventListener("mousedown", () => {
+  timer = setTimeout(
+    () =>
+      (document.getElementById("formulaForm").elements["formula"].value = ""),
+    500
+  );
+});
+document.getElementById("js-removeButton").addEventListener("mouseup", () => {
+  clearTimeout(timer);
+});
 
 // add symbol when button is pressed
 window.addSymbol = (symbol) => {
+  // check for input - input for formula or input for statement for cut rule
   const formForCut = document.getElementById("formForCut");
+
   if (formForCut.style.display === "initial")
     formForCut.elements["forCut"].value += symbol;
   else
