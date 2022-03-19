@@ -46,7 +46,10 @@
                             </select>
                             -->
                         </div>
-                        <button class="buttonPrimary" title="začať dokazovanie" type="submit"> > </button>
+                        <div class="formContainer__buttons">
+                            <button class="buttonPrimary" title="výčistiť pole a strom" type="reset">Vyčistiť</button>
+                            <button class="buttonPrimary" title="začať dokazovanie" type="submit"> Začať </button>
+                        </div>
                     </div>
                 </form>
                 <form id="formForCut">
@@ -54,11 +57,10 @@
                         <div class="inputContainer">
                             <input type="text" id="forCut" name="forCut" autocomplete="off" placeholder="formula pre pravidlo rezu">
                         </div>
-                        <div>
-                            <button class="buttonPrimary" title="zrušiť" type="reset"> x </button>
-                            <button class="buttonPrimary" title="použiť výrok" type="submit"> > </button>
+                        <div class="formContainer__buttons">
+                            <button class="buttonPrimary" title="zrušiť" type="reset"> Zrušiť </button>
+                            <button class="buttonPrimary" title="použiť výrok" type="submit"> Použiť </button>
                         </div>
-
                     </div>
                 </form>
                 <div class="formulaIsProved" id="js-formulaIsProved">Formula je dokázaná</div>

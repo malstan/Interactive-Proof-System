@@ -74,7 +74,7 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding: .5rem 0;
+  padding: .75rem 0;
 }
 
 .container__calc .formContainer .inputContainer {
@@ -85,7 +85,7 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  width: clamp(200px, 60%, 500px);
+  width: clamp(180px, 60%, 500px);
 }
 
 .container__calc .formContainer .inputContainer input, .container__calc .formContainer .inputContainer select {
@@ -104,6 +104,21 @@ body {
   padding: 0.5rem;
 }
 
+.container__calc .formContainer__buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 0.5rem;
+  margin: 0 0.5rem;
+}
+
 .container__calc__treeContainer {
   padding: 2rem 0.75rem;
   display: -webkit-box;
@@ -116,15 +131,12 @@ body {
 }
 
 .buttonPrimary {
-  width: 3.5rem;
-  height: 3.5rem;
   border: 1px solid #0084C8;
-  border-radius: 60px;
-  padding: 0.5rem;
+  border-radius: 12px;
+  padding: 0.75rem 1.25rem;
   background-color: #0084C8;
   color: #fff;
-  font-weight: bold;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   -webkit-transition: 0.3s;
   transition: 0.3s;
   cursor: pointer;
@@ -397,6 +409,10 @@ body {
     -ms-grid-rows: (1fr)[4];
         grid-template-rows: repeat(4, 1fr);
   }
+  .buttonPrimary {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -405,6 +421,12 @@ body {
   }
   .container__infos__tabs li {
     padding: 0.3rem 0.4rem;
+  }
+  .container__calc .formContainer__buttons {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
   }
 }
 /*# sourceMappingURL=style.css.map */

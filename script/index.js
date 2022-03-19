@@ -18,12 +18,33 @@ document.getElementById("formulaForm").addEventListener("submit", (event) => {
   formula && (formulaHandling = new FormulaHandling(formula, method));
 });
 
+// listener for form reset
+document.getElementById("formulaForm").addEventListener("reset", (event) => {
+  event.target[0].placeholder = "napr.: A∧B⊢¬(C⇒D),¬E";
+
+  formulaHandling && formulaHandling.handleEnd();
+
+  document.getElementById("tree-js").innerHTML = "";
+
+  document.getElementById("js-formulaIsProved").style.visibility = "hidden";
+});
+
 //listener for remove button to remove character
 document.getElementById("js-removeButton").addEventListener("click", () => {
-  let inputFormula =
-    document.getElementById("formulaForm").elements["formula"].value;
-  document.getElementById("formulaForm").elements["formula"].value =
-    inputFormula.substr(0, inputFormula.length - 1);
+  const formForCut = document.getElementById("formForCut");
+
+  if (formForCut.style.display === "initial") {
+    let inputFormula = formForCut.elements["forCut"].value;
+    formForCut.elements["forCut"].value = inputFormula.substr(
+      0,
+      inputFormula.length - 1
+    );
+  } else {
+    let inputFormula =
+      document.getElementById("formulaForm").elements["formula"].value;
+    document.getElementById("formulaForm").elements["formula"].value =
+      inputFormula.substr(0, inputFormula.length - 1);
+  }
 });
 
 // listeners for remove button to remove formula
@@ -31,7 +52,10 @@ let timer;
 document.getElementById("js-removeButton").addEventListener("mousedown", () => {
   timer = setTimeout(
     () =>
-      (document.getElementById("formulaForm").elements["formula"].value = ""),
+      document.getElementById("formForCut").style.display === "initial"
+        ? (document.getElementById("formForCut").elements["forCut"].value = "")
+        : (document.getElementById("formulaForm").elements["formula"].value =
+            ""),
     500
   );
 });

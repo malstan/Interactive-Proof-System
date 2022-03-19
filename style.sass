@@ -58,11 +58,11 @@ body
             display: flex
             justify-content: space-evenly
             align-items: center
-            padding: .5rem 0
+            padding: .75rem 0
             & .inputContainer
                 display: flex
                 flex-direction: column
-                width: clamp(200px, 60%, 500px)
+                width: clamp(180px, 60%, 500px)
                 & input, select
                     border: 1px solid $grey-light
                     border-radius: 8px
@@ -73,6 +73,12 @@ body
                 & select
                     margin-top: 0.5rem
                     padding: 0.5rem
+            &__buttons
+                display: flex
+                justify-content: space-evenly
+                flex-direction: row
+                gap: 0.5rem
+                margin: 0 0.5rem
         &__treeContainer
             padding: 2rem 0.75rem
             display: flex
@@ -80,15 +86,12 @@ body
             text-align: center
 
 .buttonPrimary
-    width: 3.5rem
-    height: 3.5rem
     border: 1px solid $blue-medium
-    border-radius: 60px
-    padding: 0.5rem
+    border-radius: 12px
+    padding: 0.75rem 1.25rem
     background-color: $blue-medium
     color: #fff
-    font-weight: bold
-    font-size: 1.5rem
+    font-size: 1.25rem
     transition: 0.3s
     cursor: pointer
     &:hover
@@ -265,9 +268,14 @@ body
     .symbols__container
         grid-template-columns: repeat(4, 64px)
         grid-template-rows: repeat(4, 1fr)
+    .buttonPrimary
+        font-size: 1rem
+        padding: 0.5rem 1rem
 
 @media (max-width: $small)
     .container
         padding: 0.3rem
         &__infos__tabs li
             padding: 0.3rem 0.4rem
+        &__calc .formContainer__buttons
+            flex-direction: column
