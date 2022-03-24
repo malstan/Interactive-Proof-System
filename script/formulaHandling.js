@@ -17,6 +17,8 @@ export default class FormulaHandling {
     this.tree = new Array(formula);
     this.leaf = new Array(formula);
 
+    this.atom = [...new Set(formula.replace(/[^A-Z]/g, "").split(""))];
+
     this.method = method;
 
     if (this.method === "gsc") this.rules = rulesGSC;
@@ -249,7 +251,7 @@ export default class FormulaHandling {
    * @returns proved ? true : false
    */
   checkIfProved() {
-    let proved = false;
+    let atomsInFormula = [];
     for (let leaf of this.leaf) {
       if (
         leaf.includes("¬") ||
@@ -258,9 +260,22 @@ export default class FormulaHandling {
         leaf.includes("⇒")
       )
         return false;
-      else proved = true;
+
+      let sequent = leaf.split("⊢");
+      const left = sequent[0].split(",");
+      const right = sequent[1].split(",");
+
+      this.atom.map((atom) => {
+        if (
+          !atomsInFormula.includes(atom) &&
+          left.includes(atom) &&
+          right.includes(atom)
+        )
+          atomsInFormula.push(atom);
+      });
     }
-    return proved;
+    if (this.atom.length == atomsInFormula.length) return true;
+    else return false;
   }
 
   /**
@@ -278,5 +293,9 @@ export default class FormulaHandling {
     Array.from(newRuleContainer.children, (rule) => {
       rule.classList.remove("readyToUse");
     });
+
+    // check
+    this.checkIfProved() &&
+      (this.formulaSuccessMessage.style.visibility = "initial");
   }
 }
