@@ -166,7 +166,8 @@ body
     &__container
         display: grid
         grid-template-columns: repeat(8, 64px)
-        grid-template-rows: repeat(2, 1fr)
+        grid-template-rows: repeat(3, 1fr)
+        justify-content: center
         gap: 0.75rem
         padding: 0.5rem 0
         &__button
@@ -182,6 +183,8 @@ body
             &:hover
                 background-color: $blue-light
                 color: #fff
+        & .space
+            grid-column: 3/7
 
 .rules
     height: calc( 100vh - 270.1px )
@@ -240,8 +243,9 @@ body
             text-align: center
     .symbols__container
         grid-template-columns: repeat(4, 64px)
-        grid-template-rows: repeat(4, 1fr)
-        justify-content: center
+        grid-template-rows: repeat(5, 1fr)
+        & .space
+            grid-column: 2/4
     .rules
         height: calc( 100vh - 246.1px )
 
@@ -258,7 +262,9 @@ body
         font-size: 2rem
     .symbols__container
         grid-template-columns: repeat(8, 64px)
-        grid-template-rows: repeat(2, 1fr)
+        grid-template-rows: repeat(3, 1fr)
+        & .space
+            grid-column: 3/7
     .rules
         height: 100%
 
@@ -267,7 +273,9 @@ body
         font-size: 1.5rem
     .symbols__container
         grid-template-columns: repeat(4, 64px)
-        grid-template-rows: repeat(4, 1fr)
+        grid-template-rows: repeat(5, 1fr)
+        & .space
+            grid-column: 2/4
     .buttonPrimary
         font-size: 1rem
         padding: 0.5rem 1rem

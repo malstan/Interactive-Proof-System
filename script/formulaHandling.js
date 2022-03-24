@@ -278,9 +278,5 @@ export default class FormulaHandling {
     Array.from(newRuleContainer.children, (rule) => {
       rule.classList.remove("readyToUse");
     });
-
-    // check
-    this.checkIfProved() &&
-      (this.formulaSuccessMessage.style.visibility = "initial");
   }
 }

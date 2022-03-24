@@ -246,8 +246,11 @@ body {
   display: grid;
   -ms-grid-columns: (64px)[8];
       grid-template-columns: repeat(8, 64px);
-  -ms-grid-rows: (1fr)[2];
-      grid-template-rows: repeat(2, 1fr);
+  -ms-grid-rows: (1fr)[3];
+      grid-template-rows: repeat(3, 1fr);
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   gap: 0.75rem;
   padding: 0.5rem 0;
 }
@@ -268,6 +271,12 @@ body {
 .symbols__container__button:hover {
   background-color: #19AEFF;
   color: #fff;
+}
+
+.symbols__container .space {
+  -ms-grid-column: 3;
+  -ms-grid-column-span: 4;
+  grid-column: 3/7;
 }
 
 .rules {
@@ -358,11 +367,13 @@ body {
   .symbols__container {
     -ms-grid-columns: (64px)[4];
         grid-template-columns: repeat(4, 64px);
-    -ms-grid-rows: (1fr)[4];
-        grid-template-rows: repeat(4, 1fr);
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    -ms-grid-rows: (1fr)[5];
+        grid-template-rows: repeat(5, 1fr);
+  }
+  .symbols__container .space {
+    -ms-grid-column: 2;
+    -ms-grid-column-span: 2;
+    grid-column: 2/4;
   }
   .rules {
     height: calc( 100vh - 246.1px);
@@ -391,8 +402,13 @@ body {
   .symbols__container {
     -ms-grid-columns: (64px)[8];
         grid-template-columns: repeat(8, 64px);
-    -ms-grid-rows: (1fr)[2];
-        grid-template-rows: repeat(2, 1fr);
+    -ms-grid-rows: (1fr)[3];
+        grid-template-rows: repeat(3, 1fr);
+  }
+  .symbols__container .space {
+    -ms-grid-column: 3;
+    -ms-grid-column-span: 4;
+    grid-column: 3/7;
   }
   .rules {
     height: 100%;
@@ -406,8 +422,13 @@ body {
   .symbols__container {
     -ms-grid-columns: (64px)[4];
         grid-template-columns: repeat(4, 64px);
-    -ms-grid-rows: (1fr)[4];
-        grid-template-rows: repeat(4, 1fr);
+    -ms-grid-rows: (1fr)[5];
+        grid-template-rows: repeat(5, 1fr);
+  }
+  .symbols__container .space {
+    -ms-grid-column: 2;
+    -ms-grid-column-span: 2;
+    grid-column: 2/4;
   }
   .buttonPrimary {
     font-size: 1rem;
