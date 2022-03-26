@@ -11,13 +11,14 @@ export default class FormulaHandling {
    * @param {string} method - proof method
    */
   constructor(formula, method) {
-    this.formulaSuccessMessage = document.getElementById("js-formulaIsProved");
+    this.formulaSuccessMessage = document.getElementById("formulaIsProved-js");
     this.treeContainer = document.getElementById("tree-js");
 
     this.tree = new Array(formula);
     this.leaf = new Array(formula);
-
     this.atom = [...new Set(formula.replace(/[^A-Z]/g, "").split(""))];
+
+    this.history = new Array();
 
     this.method = method;
 
@@ -34,6 +35,24 @@ export default class FormulaHandling {
     this.prepareRules();
 
     this.renderFormula();
+
+    // listener for step back
+    document.getElementById("stepBack-js").addEventListener("click", () => {
+      if (
+        this.history.length < 1 ||
+        this.formulaSuccessMessage.style.visibility == "initial"
+      )
+        return;
+
+      // get previous state from history
+      let previous = this.history.pop();
+
+      this.tree = previous.tree;
+      this.leaf = previous.leaf;
+      this.atom = previous.atom;
+
+      this.renderFormula();
+    });
   }
 
   /**
@@ -59,6 +78,7 @@ export default class FormulaHandling {
    * @param {number} y - coordinates of cursor
    */
   async handleChooseOfRule(ruleName, x, y) {
+    const actualLeaves = [...this.leaf];
     // get formula for
     let formulaForProof = await this.getFormulaForProof(x, y);
     if (formulaForProof === null || formulaForProof === undefined) return;
@@ -81,10 +101,30 @@ export default class FormulaHandling {
       .apply(formulaForProof, parser.results.slice(-1)[0], x, y);
 
     if (Array.isArray(result)) {
+      // add to history
+      this.history.push(
+        JSON.parse(
+          JSON.stringify({
+            tree: this.tree,
+            leaf: actualLeaves,
+            atom: this.atom,
+          })
+        )
+      );
       // add new leaves to array
       result[1].forEach((item) => this.leaf.push(item));
       // add result to array
       this.addToFormulaArray(this.tree, result);
+      // create new atoms
+      if (ruleName == "cut")
+        this.atom = [
+          ...new Set(
+            result[1]
+              .join()
+              .replace(/[^A-Z]/g, "")
+              .split("")
+          ),
+        ];
       //render and check
       this.renderFormula();
       this.checkIfProved() && this.handleEnd();

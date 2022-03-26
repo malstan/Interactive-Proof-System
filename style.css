@@ -119,6 +119,23 @@ body {
   margin: 0 0.5rem;
 }
 
+.container__calc__stepBack {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.container__calc__stepBack > div {
+  width: clamp(180px, 60%, 500px);
+}
+
+.container__calc__stepBack > button {
+  margin: 0 calc(52.5px + 0.5rem);
+}
+
 .container__calc__treeContainer {
   padding: 2rem 0.75rem;
   display: -webkit-box;
@@ -131,6 +148,7 @@ body {
 }
 
 .buttonPrimary {
+  width: 105px;
   border: 1px solid #0084C8;
   border-radius: 12px;
   padding: 0.75rem 1.25rem;
@@ -431,6 +449,7 @@ body {
     grid-column: 2/4;
   }
   .buttonPrimary {
+    width: 86px;
     font-size: 1rem;
     padding: 0.5rem 1rem;
   }
@@ -448,6 +467,9 @@ body {
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column;
+  }
+  .container__calc__stepBack > button {
+    margin: 0 0.5rem;
   }
 }
 /*# sourceMappingURL=style.css.map */

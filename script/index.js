@@ -26,7 +26,7 @@ document.getElementById("formulaForm").addEventListener("reset", (event) => {
 
   document.getElementById("tree-js").innerHTML = "";
 
-  document.getElementById("js-formulaIsProved").style.visibility = "hidden";
+  document.getElementById("formulaIsProved-js").style.visibility = "hidden";
 });
 
 //listener for remove button to remove character
