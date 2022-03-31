@@ -34,16 +34,48 @@ document.getElementById("js-removeButton").addEventListener("click", () => {
   const formForCut = document.getElementById("formForCut");
 
   if (formForCut.style.display === "initial") {
-    let inputFormula = formForCut.elements["forCut"].value;
-    formForCut.elements["forCut"].value = inputFormula.substr(
+    let inputForCut = formForCut.elements["forCut"].value;
+
+    // get position of cursor
+    let position = inputForCut.slice(
       0,
-      inputFormula.length - 1
-    );
+      formForCut.elements["forCut"].selectionStart
+    ).length;
+
+    if (position == 0) {
+      formForCut.elements["forCut"].focus();
+      return;
+    }
+
+    // add new symbol on position
+    formForCut.elements["forCut"].value =
+      inputForCut.slice(0, position - 1) + inputForCut.slice(position);
+    // set cursor position after added symbol
+    formForCut.elements["forCut"].setSelectionRange(position - 1, position - 1);
+
+    formForCut.elements["forCut"].focus();
   } else {
-    let inputFormula =
-      document.getElementById("formulaForm").elements["formula"].value;
-    document.getElementById("formulaForm").elements["formula"].value =
-      inputFormula.substr(0, inputFormula.length - 1);
+    const form = document.getElementById("formulaForm");
+    let input = form.elements["formula"].value;
+
+    // get position of cursor
+    let position = input.slice(
+      0,
+      form.elements["formula"].selectionStart
+    ).length;
+
+    if (position == 0) {
+      form.elements["formula"].focus();
+      return;
+    }
+
+    // add new symbol on position
+    form.elements["formula"].value =
+      input.slice(0, position - 1) + input.slice(position);
+    // set cursor position after added symbol
+    form.elements["formula"].setSelectionRange(position - 1, position - 1);
+
+    form.elements["formula"].focus();
   }
 });
 
@@ -68,8 +100,38 @@ window.addSymbol = (symbol) => {
   // check for input - input for formula or input for statement for cut rule
   const formForCut = document.getElementById("formForCut");
 
-  if (formForCut.style.display === "initial")
-    formForCut.elements["forCut"].value += symbol;
-  else
-    document.getElementById("formulaForm").elements["formula"].value += symbol;
+  if (formForCut.style.display === "initial") {
+    let inputForCut = formForCut.elements["forCut"].value;
+
+    // get position of cursor
+    let position = inputForCut.slice(
+      0,
+      formForCut.elements["forCut"].selectionStart
+    ).length;
+
+    // add new symbol on position
+    formForCut.elements["forCut"].value =
+      inputForCut.slice(0, position) + symbol + inputForCut.slice(position);
+    // set cursor position after added symbol
+    formForCut.elements["forCut"].setSelectionRange(position + 1, position + 1);
+
+    formForCut.elements["forCut"].focus();
+  } else {
+    const form = document.getElementById("formulaForm");
+    let input = form.elements["formula"].value;
+
+    // get position of cursor
+    let position = input.slice(
+      0,
+      form.elements["formula"].selectionStart
+    ).length;
+
+    // add new symbol on position
+    form.elements["formula"].value =
+      input.slice(0, position) + symbol + input.slice(position);
+    // set cursor position after added symbol
+    form.elements["formula"].setSelectionRange(position + 1, position + 1);
+
+    form.elements["formula"].focus();
+  }
 };
