@@ -38,7 +38,7 @@
                 <form class="form" id="formulaForm">
                     <div class="formContainer">
                         <div class="inputContainer">
-                            <input type="text" id="formula" name="fomrula" autocomplete="off" placeholder="napr.: A∧B⊢¬(C⇒D),¬E">
+                            <input type="text" id="formula" name="fomrula" autocomplete="off" placeholder="napr.: A∧B⊢¬(C⇒D),¬E" style="pointer-events:none">
                             <!--
                             <select name="method" id="method">
                                 <option value="gsc">Gentzenov sekventový kalkul</option>
@@ -55,7 +55,7 @@
                 <form id="formForCut">
                     <div class="formContainer">
                         <div class="inputContainer">
-                            <input type="text" id="forCut" name="forCut" autocomplete="off" placeholder="formula pre pravidlo rezu">
+                            <input type="text" id="forCut" name="forCut" autocomplete="off" placeholder="formula pre pravidlo rezu" style="pointer-events:none">
                         </div>
                         <div class="formContainer__buttons">
                             <button class="buttonPrimary" title="zrušiť" type="reset"> Zrušiť </button>
@@ -84,87 +84,189 @@
 
                             <div class="rules__container__rule" data-rule="neg_l">
                                 <p>negácia - ľavá (¬l)</p>
-                                <img src="img/rules/gsc_neg_l.png" alt="">
+                                <div class="rule__row">
+                                    <div class="rule__row__column">
+                                        <span>Ω ⊢ Λ, φ</span>
+                                        <span>Ω, ¬φ ⊢ Λ</span>
+                                    </div>
+                                    <span>(¬l)</span>
+                                </div>
                             </div>
 
                             <div class="rules__container__rule" data-rule="neg_r">
                                 <p>negácia - pravá (¬r)</p>
-                                <img src="img/rules/gsc_neg_r.png" alt="">
+                                <div class="rule__row">
+                                    <div class="rule__row__column">
+                                        <span>Ω, φ ⊢ Λ</span>
+                                        <span>Ω ⊢ Λ, ¬φ</span>
+                                    </div>
+                                    <span>(¬r)</span>
+                                </div>
                             </div>
 
                             <div class="rules__container__rule" data-rule="con_l1">
                                 <p>konjunkcia - ľavá (∧l1)</p>
-                                <img src="img/rules/gsc_kon_l1.png" alt="">
+                                <div class="rule__row">
+                                    <div class="rule__row__column">
+                                        <span>Ω, φ ⊢ Λ</span>
+                                        <span>Ω, φ Λ ψ ⊢ Λ</span>
+                                    </div>
+                                    <span>(Λl1)</span>
+                                </div>
                             </div>
 
                             <div class="rules__container__rule" data-rule="con_l2">
                                 <p>konjunkcia - ľavá (∧l2)</p>
-                                <img src="img/rules/gsc_kon_l2.png" alt="">
+                                <div class="rule__row">
+                                    <div class="rule__row__column">
+                                        <span>Ω, ψ ⊢ Λ</span>
+                                        <span>Ω, φ Λ ψ ⊢ Λ</span>
+                                    </div>
+                                    <span>(Λl2)</span>
+                                </div>
                             </div>
 
                             <div class="rules__container__rule" data-rule="con_r">
                                 <p>konjunkcia - pravá (∧r)</p>
-                                <img src="img/rules/gsc_kon_r.png" alt="">
+                                <div class="rule__row">
+                                    <div class="rule__row__column">
+                                        <span>Ω ⊢ Λ, φ &nbsp;&nbsp;&nbsp; Ω ⊢ Λ, ψ</span>
+                                        <span>Ω ⊢ Λ, φ Λ ψ</span>
+                                    </div>
+                                    <span>(Λl1)</span>
+                                </div>
                             </div>
 
                             <div class="rules__container__rule" data-rule="dis_l">
                                 <p>disjunkcia - ľavá (∨l)</p>
-                                <img src="img/rules/gsc_dis_l.png" alt="">
+                                <div class="rule__row">
+                                    <div class="rule__row__column">
+                                        <span>Ω, φ ⊢ Λ &nbsp;&nbsp;&nbsp; Ω, ψ ⊢ Λ</span>
+                                        <span>Ω, φ ∨ ψ ⊢ Λ</span>
+                                    </div>
+                                    <span>(Λl)</span>
+                                </div>
                             </div>
 
                             <div class="rules__container__rule" data-rule="dis_r1">
                                 <p>disjunkcia - pravá (∨r1)</p>
-                                <img src="img/rules/gsc_dis_r1.png" alt="">
+                                <div class="rule__row">
+                                    <div class="rule__row__column">
+                                        <span>Ω ⊢ Λ, φ</span>
+                                        <span>Ω ⊢ Λ, φ ∨ ψ</span>
+                                    </div>
+                                    <span>(∨r1)</span>
+                                </div>
                             </div>
 
                             <div class="rules__container__rule" data-rule="dis_r2">
                                 <p>disjunkcia - pravá (∨r2)</p>
-                                <img src="img/rules/gsc_dis_r2.png" alt="">
+                                <div class="rule__row">
+                                    <div class="rule__row__column">
+                                        <span>Ω ⊢ Λ, ψ</span>
+                                        <span>Ω ⊢ Λ, φ ∨ ψ</span>
+                                    </div>
+                                    <span>(∨r2)</span>
+                                </div>
                             </div>
 
                             <div class="rules__container__rule" data-rule="imp_l">
                                 <p>implikácia - ľavá (⇒l)</p>
-                                <img src="img/rules/gsc_imp_l.png" alt="">
+                                <div class="rule__row">
+                                    <div class="rule__row__column">
+                                        <span>Ω ⊢ Λ, φ &nbsp;&nbsp;&nbsp; Ω', ψ ⊢ Λ'</span>
+                                        <span>Ω, Ω', φ ⇒ ψ ⊢ Λ, Λ'</span>
+                                    </div>
+                                    <span>(⇒l)</span>
+                                </div>
                             </div>
 
                             <div class="rules__container__rule" data-rule="imp_r">
                                 <p>implikácia - pravá (⇒r)</p>
-                                <img src="img/rules/gsc_imp_r.png" alt="">
+                                <div class="rule__row">
+                                    <div class="rule__row__column">
+                                        <span>Ω, φ ⊢ Λ, ψ</span>
+                                        <span>Ω ⊢ Λ, φ ⇒ ψ</span>
+                                    </div>
+                                    <span>(⇒r)</span>
+                                </div>
                             </div>
 
                             <div class="rules__container__rule" data-rule="wl">
                                 <p>pravidlo zoslabenia - ľavé (wl)</p>
-                                <img src="img/rules/gsc_wl.png" alt="">
+                                <div class="rule__row">
+                                    <div class="rule__row__column">
+                                        <span>Ω ⊢ Λ</span>
+                                        <span>Ω, φ ⊢ Λ</span>
+                                    </div>
+                                    <span>(wl)</span>
+                                </div>
                             </div>
 
                             <div class="rules__container__rule" data-rule="wr">
                                 <p>pravidlo zoslabenia - pravé (wr)</p>
-                                <img src="img/rules/gsc_wr.png" alt="">
+                                <div class="rule__row">
+                                    <div class="rule__row__column">
+                                        <span>Ω ⊢ Λ</span>
+                                        <span>Ω ⊢ Λ, φ</span>
+                                    </div>
+                                    <span>(wr)</span>
+                                </div>
                             </div>
 
                             <div class="rules__container__rule" data-rule="cl">
                                 <p>pravidlo kontrakcie - ľavé (cl)</p>
-                                <img src="img/rules/gsc_cl.png" alt="">
+                                <div class="rule__row">
+                                    <div class="rule__row__column">
+                                        <span>Ω, φ, φ ⊢ Λ</span>
+                                        <span>Ω, φ ⊢ Λ</span>
+                                    </div>
+                                    <span>(cl)</span>
+                                </div>
                             </div>
 
                             <div class="rules__container__rule" data-rule="cr">
                                 <p>pravidlo kontrakcie - pravé (cr)</p>
-                                <img src="img/rules/gsc_cr.png" alt="">
+                                <div class="rule__row">
+                                    <div class="rule__row__column">
+                                        <span>Ω ⊢ Λ, φ, φ</span>
+                                        <span>Ω ⊢ Λ, φ</span>
+                                    </div>
+                                    <span>(cr)</span>
+                                </div>
                             </div>
 
                             <div class="rules__container__rule" data-rule="cut">
                                 <p>pravidlo rezu (cut)</p>
-                                <img src="img/rules/gsc_cut.png" alt="">
+                                <div class="rule__row">
+                                    <div class="rule__row__column">
+                                        <span>Ω ⊢ Λ, φ &nbsp;&nbsp;&nbsp; Ω', φ ⊢ Λ'</span>
+                                        <span>Ω, Ω' ⊢ Λ, Λ'</span>
+                                    </div>
+                                    <span>(cut)</span>
+                                </div>
                             </div>
 
                             <div class="rules__container__rule" data-rule="exl">
                                 <p>pravidlo výmeny - ľavé (exl)</p>
-                                <img src="img/rules/gsc_exl.png" alt="">
+                                <div class="rule__row">
+                                    <div class="rule__row__column">
+                                        <span>Ω, φ, ψ, Ω' ⊢ Λ</span>
+                                        <span>Ω, ψ, φ, Ω' ⊢ Λ</span>
+                                    </div>
+                                    <span>(exl)</span>
+                                </div>
                             </div>
 
                             <div class="rules__container__rule" data-rule="exr">
                                 <p>pravidlo výmeny - pravé (exr)</p>
-                                <img src="img/rules/gsc_exr.png" alt="">
+                                <div class="rule__row">
+                                    <div class="rule__row__column">
+                                        <span>Ω ⊢ Λ, φ, ψ, Λ'</span>
+                                        <span>Ω ⊢ Λ, ψ, φ, Λ'</span>
+                                    </div>
+                                    <span>(exr)</span>
+                                </div>
                             </div>
 
                         </div>

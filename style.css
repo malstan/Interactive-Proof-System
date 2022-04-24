@@ -317,8 +317,9 @@ body {
   -ms-flex-preferred-size: 290px;
       flex-basis: 290px;
   padding: 0 1rem;
-  -webkit-transition: 0.2s;
-  transition: 0.2s;
+  -webkit-transition: 0.25s ease-in-out;
+  transition: 0.25s ease-in-out;
+  cursor: default;
 }
 
 .rules__container__rule img {
@@ -330,11 +331,47 @@ body {
   font-weight: bolder;
 }
 
+.rules__container__rule .rule__row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 0.5rem;
+  font-size: 1.3rem;
+  color: #1f1f1f;
+  margin-bottom: 16px;
+}
+
+.rules__container__rule .rule__row > :last-child {
+  font-size: 1rem;
+}
+
+.rules__container__rule .rule__row__column {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.rules__container__rule .rule__row__column > :first-child {
+  border-bottom: 1px solid black;
+}
+
+.rules__container .readyToUse {
+  -webkit-box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+}
+
 .rules__container .readyToUse:hover {
   cursor: pointer;
-  -webkit-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
-          box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 8px;
+  -webkit-box-shadow: 0px 0px 8px 1px rgba(0, 0, 0, 0.5);
+          box-shadow: 0px 0px 8px 1px rgba(0, 0, 0, 0.5);
 }
 
 #error, #success {
@@ -381,6 +418,11 @@ body {
   }
   .rules__container__rule {
     text-align: center;
+  }
+  .rules__container__rule .rule__row {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
   }
   .symbols__container {
     -ms-grid-columns: (64px)[4];

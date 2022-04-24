@@ -15,7 +15,14 @@ document.getElementById("formulaForm").addEventListener("submit", (event) => {
   const { formula, method } = formHandling.handleForm();
 
   // if formula is valid than start proving
-  formula && (formulaHandling = new FormulaHandling(formula, method));
+  if (formula) {
+    formulaHandling = new FormulaHandling(formula, method);
+    $("#rules").show().siblings().hide();
+    $("*[data-tab='#rules']")
+      .addClass("activeTab")
+      .siblings()
+      .removeClass("activeTab");
+  }
 });
 
 // listener for form reset
@@ -27,6 +34,11 @@ document.getElementById("formulaForm").addEventListener("reset", (event) => {
   document.getElementById("tree-js").innerHTML = "";
 
   document.getElementById("formulaIsProved-js").style.visibility = "hidden";
+  $("#symbols").show().siblings().hide();
+  $("*[data-tab='#symbols']")
+    .addClass("activeTab")
+    .siblings()
+    .removeClass("activeTab");
 });
 
 //listener for remove button to remove character

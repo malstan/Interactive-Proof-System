@@ -206,16 +206,33 @@ body
         &__rule
             flex-basis: 290px
             padding: 0 1rem
-            transition: 0.2s
+            transition: 0.25s ease-in-out
+            cursor: default
             & img
                 height: 65px
                 width: auto
             & p
                 font-weight: bolder
-        & .readyToUse:hover
-            cursor: pointer
-            box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25)
+            & .rule__row
+                display: flex
+                align-items: center
+                gap: 0.5rem
+                font-size: 1.3rem
+                color: #1f1f1f
+                margin-bottom: 16px
+                & > :last-child
+                    font-size: 1rem
+                &__column
+                    display: flex
+                    flex-direction: column
+                    & > :first-child
+                        border-bottom: 1px solid black
+        & .readyToUse
+            box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.25)
             border-radius: 8px
+            &:hover
+                cursor: pointer
+                box-shadow: 0px 0px 8px 1px rgba(0, 0, 0, 0.5)
 
 /// ERROR AND SUCCESS
 #error, #success
@@ -249,6 +266,8 @@ body
         justify-content: center
         &__rule
             text-align: center
+            & .rule__row
+                justify-content: center
     .symbols__container
         grid-template-columns: repeat(4, 64px)
         grid-template-rows: repeat(5, 1fr)
