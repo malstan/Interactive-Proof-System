@@ -1,3 +1,3 @@
 # Interactive-Proof-System
 
-https://stenllysb.github.io/Interactive-Proof-System
+https://malstan.github.io/Interactive-Proof-System

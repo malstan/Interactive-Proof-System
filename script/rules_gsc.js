@@ -161,7 +161,7 @@ async function handleComma(formula, x, y) {
 
   // add options
   let defaultOption = document.createElement("option");
-  defaultOption.innerText = "výber výroku";
+  defaultOption.innerText = "výber formuly";
   formulaContainer.appendChild(defaultOption);
   formulas.forEach((item) => {
     let option = document.createElement("option");

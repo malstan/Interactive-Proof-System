@@ -3,7 +3,40 @@ import { onError, onSuccess } from "./messages.js";
 
 /**
  * class for formula handling
+ *
+ *
+ * structure of array for store proof tree - this.tree
+ * [
+ *  'A',
+ *  [[
+ *    'B',
+ *    [[
+ *      'C',
+ *      [['E']],
+ *      '(3)'
+ *    ],
+ *    [
+ *      'D',
+ *      [['F']],
+ *      '(4)
+ *    ]],
+ *    '(2)'
+ *  ]],
+ *  '(1)'
+ * ]
+ *
+ *
+ * structure of array for store history - this.history
+ * [
+ *  {
+ *    tree: array tree,
+ *    leaf: array leaf,
+ *    atom: array atom
+ *  },
+ *  {...}
+ * ]
  */
+
 export default class FormulaHandling {
   /**
    * constructor
@@ -148,7 +181,7 @@ export default class FormulaHandling {
 
       // add options to select box
       let defaultOption = document.createElement("option");
-      defaultOption.innerText = "výber formuly";
+      defaultOption.innerText = "výber listu";
       leafContainer.appendChild(defaultOption);
 
       this.leaf.forEach((item) => {

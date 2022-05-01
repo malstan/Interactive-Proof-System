@@ -1,12 +1,12 @@
 // handling tabs
 $(document).ready(function () {
-  $("#info").show();
-  $("*[data-tab='#info']").addClass("activeTab");
+  $("#tutorial").show();
+  $("*[data-tab='#tutorial']").addClass("activeTab");
 
   $(".tabs-js li").on("click", function () {
     var idOfPane = $(this).attr("data-tab");
 
-    $(idOfPane).show().siblings().hide();
+    $(idOfPane).fadeIn().siblings().hide();
 
     $(this).addClass("activeTab").siblings().removeClass("activeTab");
   });
