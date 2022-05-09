@@ -7,8 +7,6 @@
         <title>Interaktívny dokazovací systém výrokovej logiky</title>
 
         <link rel="stylesheet" href="style.css">
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     </head>
 
     <body>
@@ -73,10 +71,10 @@
             </div>
             <div class="container__infos">
                 <ul class="container__infos__tabs tabs-js">
-                    <li data-tab="#rules">Pravidlá</li>
-                    <li data-tab="#symbols">Symboly</li>
-                    <li data-tab="#tutorial">Návod</li>
-                    <li data-tab="#info">Info</li>
+                    <li data-tab="rules">Pravidlá</li>
+                    <li data-tab="symbols">Symboly</li>
+                    <li data-tab="tutorial">Návod</li>
+                    <li data-tab="info">Info</li>
                 </ul>
                 <div class="container__infos__panes panes-js">
                     <div id="rules" class="rules">
@@ -316,7 +314,7 @@
         <select class="chooseLeaf" id="js-chooseLeaf">
         </select>
 
-        <script src="script/jquery_functions.js"></script>
+        <script src="script/handleTabs.js"></script>
         <script src="script/nearley.js"></script>
         <script src="script/grammar.js"></script>
         <script defer src="script/index.js" type="module"></script>

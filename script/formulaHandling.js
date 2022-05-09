@@ -325,7 +325,9 @@ export default class FormulaHandling {
    */
   checkIfProved() {
     let atomsInFormula = [];
+    // check leafs
     for (let leaf of this.leaf) {
+      // check for symbol
       if (
         leaf.includes("¬") ||
         leaf.includes("∧") ||
@@ -338,6 +340,7 @@ export default class FormulaHandling {
       const left = sequent[0].split(",");
       const right = sequent[1].split(",");
 
+      // check for atoms
       this.atom.map((atom) => {
         if (
           !atomsInFormula.includes(atom) &&
