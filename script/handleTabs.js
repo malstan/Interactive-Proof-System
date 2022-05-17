@@ -1,7 +1,7 @@
 // handling tabs
 
 // show tutorial
-document.getElementById("tutorial").style.display = "initial";
+document.getElementById("tutorial").style.display = "block";
 document.getElementById("tutorial").style.opacity = "1";
 document.querySelector("*[data-tab='tutorial']").classList.add("activeTab");
 
@@ -24,7 +24,7 @@ document.querySelectorAll(".tabs-js li").forEach((item) => {
         item.classList.add("activeTab");
         // show new tab content
         document.getElementById(item.getAttribute("data-tab")).style.display =
-          "initial";
+          "block";
         // fade in tab content
         FX.fadeIn(document.getElementById(item.getAttribute("data-tab")), {
           duration: 100,
