@@ -66,7 +66,7 @@
                     <div></div>
                     <button class="buttonPrimary" id="stepBack-js" title="krok späť">Späť</button>
                 </div>
-                <div class="formulaIsProved" id="formulaIsProved-js">Dokazovaný sekvent je dokázaný.</div>
+                <div class="formulaIsProved" id="formulaIsProved-js">Sekvent je dokázaný.</div>
                 <div class="container__calc__treeContainer" id="tree-js">
                 </div>
             </div>
@@ -108,9 +108,9 @@
                                 <div class="rule__row">
                                     <div class="rule__row__column">
                                         <span>Ω, φ ⊢ Λ</span>
-                                        <span>Ω, φ Λ ψ ⊢ Λ</span>
+                                        <span>Ω, φ ∧ ψ ⊢ Λ</span>
                                     </div>
-                                    <span>(Λl1)</span>
+                                    <span>(∧l1)</span>
                                 </div>
                             </div>
 
@@ -119,9 +119,9 @@
                                 <div class="rule__row">
                                     <div class="rule__row__column">
                                         <span>Ω, ψ ⊢ Λ</span>
-                                        <span>Ω, φ Λ ψ ⊢ Λ</span>
+                                        <span>Ω, φ ∧ ψ ⊢ Λ</span>
                                     </div>
-                                    <span>(Λl2)</span>
+                                    <span>(∧l2)</span>
                                 </div>
                             </div>
 
@@ -130,9 +130,9 @@
                                 <div class="rule__row">
                                     <div class="rule__row__column">
                                         <span>Ω ⊢ Λ, φ &nbsp;&nbsp;&nbsp; Ω ⊢ Λ, ψ</span>
-                                        <span>Ω ⊢ Λ, φ Λ ψ</span>
+                                        <span>Ω ⊢ Λ, φ ∧ ψ</span>
                                     </div>
-                                    <span>(Λl1)</span>
+                                    <span>(∧l1)</span>
                                 </div>
                             </div>
 
@@ -279,7 +279,7 @@
                             <button class="symbols__container__button" onclick="window.addSymbol('E')">E</button>
                             <button class="symbols__container__button" onclick="window.addSymbol('F')">F</button>
                             <button class="symbols__container__button" onclick="window.addSymbol('G')">G</button>
-                            <button class="symbols__container__button" title="vymazať" id="js-removeButton">←</button>
+                            <button class="symbols__container__button" title="vymazať" id="removeButton-js">←</button>
                             <button class="symbols__container__button" title="konjunkcia" onclick="window.addSymbol('∧')">∧</button>
                             <button class="symbols__container__button" title="disjunkcia" onclick="window.addSymbol('∨')">∨</button>
                             <button class="symbols__container__button" title="negácia" onclick="window.addSymbol('¬')">¬</button>

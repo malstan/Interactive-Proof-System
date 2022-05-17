@@ -7,7 +7,10 @@ document.getElementById("formulaForm").addEventListener("submit", (event) => {
   event.preventDefault();
 
   // if there is formula than end proving
-  if (formulaHandling) formulaHandling.handleEnd();
+  if (formulaHandling) {
+    formulaHandling.handleEnd();
+    formulaHandling = null;
+  }
 
   // create object for form handling and formula validation
   const formHandling = new FormHandling("formulaForm");
@@ -42,7 +45,7 @@ document.getElementById("resetButton-js").addEventListener("click", (event) => {
 });
 
 //listener for remove button to remove character
-document.getElementById("js-removeButton").addEventListener("click", () => {
+document.getElementById("removeButton-js").addEventListener("click", () => {
   const formForCut = document.getElementById("formForCut");
 
   if (formForCut.style.display === "initial") {
@@ -93,7 +96,7 @@ document.getElementById("js-removeButton").addEventListener("click", () => {
 
 // listeners for remove button to remove formula
 let timer;
-document.getElementById("js-removeButton").addEventListener("mousedown", () => {
+document.getElementById("removeButton-js").addEventListener("mousedown", () => {
   timer = setTimeout(
     () =>
       document.getElementById("formForCut").style.display === "initial"
@@ -103,7 +106,7 @@ document.getElementById("js-removeButton").addEventListener("mousedown", () => {
     500
   );
 });
-document.getElementById("js-removeButton").addEventListener("mouseup", () => {
+document.getElementById("removeButton-js").addEventListener("mouseup", () => {
   clearTimeout(timer);
 });
 
