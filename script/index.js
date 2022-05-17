@@ -17,28 +17,28 @@ document.getElementById("formulaForm").addEventListener("submit", (event) => {
   // if formula is valid than start proving
   if (formula) {
     formulaHandling = new FormulaHandling(formula, method);
-    $("#rules").show().siblings().hide();
-    $("*[data-tab='#rules']")
-      .addClass("activeTab")
-      .siblings()
-      .removeClass("activeTab");
+
+    const clickEvent = new Event("click");
+    document
+      .querySelector(".tabs-js li[data-tab='rules']")
+      .dispatchEvent(clickEvent);
   }
 });
 
 // listener for form reset
-document.getElementById("formulaForm").addEventListener("reset", (event) => {
-  event.target[0].placeholder = "napr.: A∧B⊢¬(C⇒D),¬E";
+document.getElementById("resetButton-js").addEventListener("click", (event) => {
+  document.getElementById("formula").placeholder = "napr.: A∧B⊢¬(C⇒D),¬E";
 
   formulaHandling && formulaHandling.handleEnd();
 
   document.getElementById("tree-js").innerHTML = "";
 
   document.getElementById("formulaIsProved-js").style.visibility = "hidden";
-  $("#symbols").show().siblings().hide();
-  $("*[data-tab='#symbols']")
-    .addClass("activeTab")
-    .siblings()
-    .removeClass("activeTab");
+
+  const clickEvent = new Event("click");
+  document
+    .querySelector(".tabs-js li[data-tab='symbols']")
+    .dispatchEvent(clickEvent);
 });
 
 //listener for remove button to remove character

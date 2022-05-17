@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="sk">
     <head>
 
         <meta name="description" content="Interaktívny dokazovací systém výrokovej logiky pomocou Gentzenovho sekventového kalkulu.">
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
         <title>Interaktívny dokazovací systém výrokovej logiky</title>
 
         <link rel="stylesheet" href="style.css">
@@ -45,7 +46,7 @@
                             -->
                         </div>
                         <div class="formContainer__buttons">
-                            <button class="buttonPrimary" title="výčistiť pole a strom" type="reset">Vyčistiť</button>
+                            <button class="buttonPrimary" id="resetButton-js" title="výčistiť pole a strom" type="reset">Vyčistiť</button>
                             <button class="buttonPrimary" title="začať dokazovanie" type="submit"> Začať </button>
                         </div>
                     </div>
@@ -65,7 +66,7 @@
                     <div></div>
                     <button class="buttonPrimary" id="stepBack-js" title="krok späť">Späť</button>
                 </div>
-                <div class="formulaIsProved" id="formulaIsProved-js">Formula je dokázaná.</div>
+                <div class="formulaIsProved" id="formulaIsProved-js">Dokazovaný sekvent je dokázaný.</div>
                 <div class="container__calc__treeContainer" id="tree-js">
                 </div>
             </div>
