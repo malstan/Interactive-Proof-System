@@ -64,9 +64,9 @@
         <q-item clickable to="/help">
           <q-item-section>{{ $t("labels.help") }}</q-item-section>
         </q-item>
-        <q-item clickable to="/user-testing">
+        <!-- <q-item clickable to="/user-testing">
           <q-item-section>Používateľské testovanie</q-item-section>
-        </q-item>
+        </q-item> -->
       </q-list>
     </q-drawer>
 
