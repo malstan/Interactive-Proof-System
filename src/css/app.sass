@@ -1,0 +1,203 @@
+.body--light
+    h1,h2,h3,h4,h5,h6,p,li
+        color: $dark
+.body--dark
+    h1,h2,h3,h4,h5,h6,p,li
+        color: $light
+a
+    color: $secondary
+// app global css in Sass form
+.container
+    max-width: 1500px
+    margin: 0 auto
+    padding: 1rem
+.text-light
+    color:  #d0d0d0
+.gap
+    gap: 0.75rem
+    @media only screen and (max-width: 1023.99px)
+        gap: 2rem
+.gap2
+    gap: 1.5rem
+    @media only screen and (max-width: 601px)
+        gap: 0.5rem
+.ls-formula, .ls-formula-i input, .ls-formula-i textarea
+    letter-spacing: 0.1875rem !important
+    line-height: 1.5 !important
+
+// tree
+.tree
+    text-align: center
+    font-size: 1.4rem
+    letter-spacing: 0.25rem
+    &__siblings
+        display: flex
+        align-items: flex-end
+        justify-content: space-evenly
+        gap: 3rem
+    &__border-top
+        border-top: 1px solid $primary
+        position: relative
+        &__rule
+            font-size: 0.9rem
+            position: absolute
+            top: -0.75rem
+            right: -45px
+            width: 40px
+            text-align: left
+            letter-spacing: 0
+    &__hypo
+        font-size: 0.85rem
+        vertical-align: super
+
+// fitch
+.fitch-proof
+    display: flex
+    gap: 4rem
+.fitch-rule
+    padding: 0.5rem 1rem
+    font-size: 1.2rem
+    &--as
+        @extend .fitch-rule
+        margin-top: 0.375rem
+.fitch-spacer
+    padding-left: 1rem
+    border-left: 1px solid $primary
+    display: inline-block
+.fitch-as
+    border-bottom: 1px solid $primary
+    margin-top: 0.375rem
+.fitch-formula
+    padding: 0.5rem 1rem
+    border-left: 1px solid $primary
+    display: inline-block
+    font-size: 1.2rem
+.fitch-index
+    padding: 0.5rem 1rem 0.5rem 0
+    font-size: 1.2rem
+    min-width: 2.625rem
+    display: inline-block
+.fitch-keyboard
+    display: grid
+    grid-template-columns: repeat(6, 1fr)
+    gap: 0.4rem
+    margin: 2rem auto
+    max-width: 400px
+    &__remove
+        grid-column-end: 7
+    &__double
+        grid-column: span 2
+
+// rules
+.rule
+    text-align: center
+    font-size: 1rem
+    max-width: 202px
+    margin: 1rem auto
+    &__siblings
+        display: flex
+        align-items: flex-end
+        justify-content: space-evenly
+        gap: 3rem
+    &__border-top
+        border-top: 1px solid $primary
+        position: relative
+        &__rule-name
+            font-size: 0.8rem
+            position: absolute
+            top: -0.7rem
+            right: -35px
+            width: 30px
+            text-align: left
+    &__hypo  
+        &__dots
+            display: flex
+            flex-direction: column
+            margin-bottom: 0.25rem
+            span
+                line-height: 0.3
+    &__input
+        padding: 0.1875rem 0.375rem
+        background: $secondary-transparent
+
+.back-button
+    margin: 0 48px
+    @media only screen and (max-width: 599px)
+        margin: 1rem 0
+
+// sat solver
+.sat
+    &__input
+        display: flex
+        gap: 0.75rem
+        align-items: flex-end
+        @media only screen and (max-width: 600px)
+            flex-direction: column
+        & > .q-field
+            width: 100%
+    &__keyboard
+        &--cnf
+            display: grid
+            gap: 0.4rem
+            margin: 2rem auto
+            max-width: 400px
+            grid-template-columns: repeat(6, 1fr)
+        &--dimacs
+            display: grid
+            gap: 0.4rem
+            margin: 2rem auto
+            max-width: 400px
+            grid-template-columns: repeat(3, 1fr)
+        &__double
+            grid-column: span 2
+
+// scrollbar
+*::-webkit-scrollbar 
+    width: 10px
+    height: 10px 
+
+.body--dark
+    &::-webkit-scrollbar-track, *::-webkit-scrollbar-track
+        border-radius: 3px
+        background-color: #ffffff18
+.body--light
+    &::-webkit-scrollbar-track, *::-webkit-scrollbar-track
+        border-radius: 3px
+        background-color: #00000018
+
+.body--dark
+    &::-webkit-scrollbar-track:hover, *::-webkit-scrollbar-track:hover 
+        background-color: #ffffff2d
+.body--light
+    &::-webkit-scrollbar-track:hover, *::-webkit-scrollbar-track:hover 
+        background-color: #0000002d
+
+.body--dark
+    &::-webkit-scrollbar-track:active, *::-webkit-scrollbar-track:active 
+        background-color: #ffffff2d
+.body--light
+    &::-webkit-scrollbar-track:active, *::-webkit-scrollbar-track:active 
+        background-color: #0000002d
+
+.body--dark
+    &::-webkit-scrollbar-thumb, *::-webkit-scrollbar-thumb 
+        border-radius: 3px
+        background-color: #ffffff59
+.body--light
+    &::-webkit-scrollbar-thumb, *::-webkit-scrollbar-thumb 
+        border-radius: 3px
+        background-color: #00000059
+
+.body--dark
+    &::-webkit-scrollbar-thumb:hover, *::-webkit-scrollbar-thumb:hover 
+        background-color: #ffffff80
+.body--light
+    &::-webkit-scrollbar-thumb:hover, *::-webkit-scrollbar-thumb:hover 
+        background-color: #00000080
+
+.body--dark
+    &::-webkit-scrollbar-thumb:active, *::-webkit-scrollbar-thumb:active 
+        background-color: #ffffff80
+.body--light
+    &::-webkit-scrollbar-thumb:active, *::-webkit-scrollbar-thumb:active 
+        background-color: #00000080

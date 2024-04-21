@@ -1,0 +1,32 @@
+// totaly bad input
+// -> bad input
+dkg jskg fs 5421 f4
+a∧∨∧∨ba
+
+// input only (
+// -> bad input
+(
+
+// switch logic connectors with parenthesis
+// -> bad input
+(a∧b)∨(b∧¬a)
+
+// switch logic connectors without parenthesis
+// -> UNSAT
+a∧b∨b∧¬a
+
+// multiple letters
+// -> bad input
+aa∨bb∧b∨¬c
+
+// satisfiable cnf
+// -> SAT
+(a∨b)∧(¬a∨¬c)
+
+// satisfiable formula with white spaces
+// -> SAT
+(x ∨ y ∨ z) ∧ (x ∨ y ∨ ¬z)
+
+// unsatisfiable cnf
+// -> UNSAT
+(x∨y∨z)∧(x∨y∨¬z)∧(x∨¬y∨z)∧(x∨¬y∨¬z)∧(¬x∨y∨z)∧(¬x∨y∨¬z)∧(¬x∨¬y∨z)∧(¬x∨¬y∨¬z)
