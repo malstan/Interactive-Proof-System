@@ -1,6 +1,6 @@
 {
   "name": "interaktivny-dokazovaci-system",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "App for helping you to prove logic formulas.",
   "productName": "Interactive Proof System",
   "author": "Stanislav Malík <stanislav.malik@student.tuke.sk>",

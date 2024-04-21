@@ -1,41 +1,33 @@
-# Interactive Proof System (interaktivny-dokazovaci-system)
+# Interactive Proof System
 
-App for helping you to prove logic formulas.
+This application is used for interactive proving of logical formulas. It supports propositional, intuitionist and predicate logic. It proves using natural deduction or sequent calculus. The proof is displayed as Gentzen or Fitch notation.
 
-## Install the dependencies
+> The application is available at [https://malstan.github.io/Interactive-Proof-System/](https://malstan.github.io/Interactive-Proof-System/)
+
+## Setup instructions
+
+To set up this application locally, you need to have the npm package manager, which comes with a Node.js installation.
+
+Once installed, use the following command to install the required packages.
+
 ```bash
-yarn
-# or
 npm install
 ```
 
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
+### Running the application locally
+
+After you've installed the required packages, you can run the application locally by following these steps:
+
+1. Navigate to the project directory.
+2. Run server typing `npm run dev` into the command line.
+3. Once the server starts, you can find the specific address and port in the console output.
+
+### Build instructions
+
+The application can be built for deployment running the following command:
+
 ```bash
-quasar dev
+npm run build
 ```
 
-
-### Lint the files
-```bash
-yarn lint
-# or
-npm run lint
-```
-
-
-### Format the files
-```bash
-yarn format
-# or
-npm run format
-```
-
-
-
-### Build the app for production
-```bash
-quasar build
-```
-
-### Customize the configuration
-See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).
+Output files will be located inside `dist` folder.
